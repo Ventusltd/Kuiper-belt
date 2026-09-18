@@ -45,3 +45,8 @@ is necessary and duty of humanity to progress human civilisation. He has taken o
 from his own busienss VENTUS Ltd into the GLOBALGRID2050.com project. He hopes by doing the work open source and funding it himself he can remain independent 
 and with integrity play his small party in supporting future generation be successful in order to honour all that he has been lucky to be a part of in the 
 above journey. 
+
+GIVEN THE ENORMITY OF THE WORK HE HOPES KUIIPER BUILT WILL BECOME HIS CPU WAFER GALAXY INSPIRED AND SPIDER REPOSITORY INSPIRED WORLD WHERE SPACE TIME 
+CAN BE SIMULATED TO DISPLAY HIS ENTIRE WORK IN ONE PLACE IN ORDER TO NAVIGATE TO CLARITY I.E. REACH PRODUCT OPEN SOURCE SAN BOXES THAT ENABLE COMMUNITY 
+ENERGY AND SUPPORT GOVERNMENTS AND CORPORATION PREPARE FOR CLIMATE CHANGE, THE AGE OF AI IN ENERGY AND BUILD A NET ZERO PROOF BUSINESS PLAN. 
+He believes human dignity can be preserved with education for ALL. 
