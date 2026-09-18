@@ -87,15 +87,22 @@ this project is built on the principle that a claim which cannot be checked is n
 ## Why build GLOBALGRID2050 now
 
 He wants to use this experience to BUILD www.globalgrid2050.com in the age of AI, to support efforts
-preventing irreversible climate destruction, rising inflation and energy security issues. He follows
-projections that solar may cover as much as 75 per cent of global electricity demand by 2050, as
-reported by pv magazine on 13 April 2021:
-https://www.pv-magazine.com/2021/04/13/solar-may-cover-75-of-global-electricity-demand-by-2050/
+preventing irreversible climate destruction, rising inflation and energy security issues.
 
-He has separately cited a deployment figure in the order of 75 TWp as the scale that may be
-required. That is a different claim in a different unit, installed capacity rather than share of
-demand, and it is listed below as a candidate until its own source is attached. He understands that
-the solar field has suffered from almost two decades of boom and bust cycles.
+He follows the conclusion of the third Terawatt Workshop, held in Germany in May 2022, that 75 TW of
+installed solar capacity by 2050 is a realistic global target. That conclusion came from the
+workshop discussions combined with a wide ranging review of decarbonisation pathways, energy demand
+projections and the state of the art in PV technology, and was set out by more than 50 leading
+figures from the PV industry. Reported by pv magazine on 1 July 2023:
+https://www.pv-magazine.com/2023/07/01/weekend-read-waiting-is-not-an-option/
+
+A separate projection holds that solar may cover as much as 75 per cent of global electricity demand
+by 2050, reported by pv magazine on 13 April 2021:
+https://www.pv-magazine.com/2021/04/13/solar-may-cover-75-of-global-electricity-demand-by-2050/
+These are two different quantities, installed capacity and share of demand. They share a number and
+nothing else, and they are not to be merged.
+
+He understands that the solar field has suffered from almost two decades of boom and bust cycles.
 
 Given his industrial, infrastructure, solar, wind, EV and battery storage and power systems
 engineering experience, supported by chartered engineers with indemnity, he believes the age of AI
@@ -138,10 +145,10 @@ this file too. The claims above that currently carry a public source:
 | Podcast, and reach of 102 countries | https://www.buzzsprout.com/2272772 |
 | Podcast transcripts | https://globalgrid2050.com/podcast_transcripts/ |
 | The peak challenge of electrifying heat and transport in the UK | https://www.ventusltd.com/post/the-real-peak-challenge-of-electrifying-heat-and-transport-in-the-uk |
+| 75 TW of installed solar capacity by 2050, third Terawatt Workshop | https://www.pv-magazine.com/2023/07/01/weekend-read-waiting-is-not-an-option/ |
 | Solar may cover 75 per cent of global electricity demand by 2050 | https://www.pv-magazine.com/2021/04/13/solar-may-cover-75-of-global-electricity-demand-by-2050/ |
 
-Claims still to have their source attached, and to be treated as candidates until they do: the
-75 TWp installed capacity figure, which is not the same claim as the 75 per cent of demand above and
-must not be merged with it; the ONS primary energy figure and the year it reports; the 70 per cent
-hypothesis; and the Nordspolder and LEONI project records. Anyone is welcome to ask for them, or to challenge
+Claims still to have their source attached, and to be treated as candidates until they do: the ONS
+primary energy figure and the year it reports; the 70 per cent hypothesis; and the Nordspolder and
+LEONI project records. Anyone is welcome to ask for them, or to challenge
 them.
