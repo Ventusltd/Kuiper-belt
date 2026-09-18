@@ -45,8 +45,8 @@ customer complaints about broadband cable and billing issues, and solved complex
 applications. He spent 2 years based in the London office supporting field sales engineers across
 the South West, the Midlands and Wales, 2 years in external field sales as a sales engineer in the
 South East of England, and 1 year as National Business Development Manager, where he pioneered the
-establishment of solar and wind energy business units in the UK and led new sales campaigns, product development,
-procurement and product management initiatives.
+establishment of solar and wind energy business units in the UK and led new sales campaigns,
+product development, procurement and product management initiatives.
 
 **Honeywell Safety Products.** He trained Vestas and Siemens as well as RWE technicians in safety at
 height, climbing and evacuation systems, and held product management responsibility to build on this
@@ -111,15 +111,25 @@ systems models that materially reduce energy use. He has stated on the podcast t
 could be as much as 70 per cent. That figure is a hypothesis this project exists to test, not a
 result it has produced, and it should be read as such until it carries evidence.
 
-For scale, he has been on record in the podcast stating that the Office for National Statistics
-recorded total primary energy usage in the UK of approximately 1,600 TWh, using the IEA conversion
-of 11.63 to turn million tonnes of oil equivalent into terawatt hours. The point of translating the
-figure is to communicate the challenges facing the UK power grid: to grow for national and social
-security, and to control runaway inflation and climate change.
+For scale, the Office for National Statistics recorded UK annual energy use of 141 million tonnes of
+oil equivalent for 2019, which is 1,644 TWh at the IEA conversion of 11.63 TWh per Mtoe. Later years
+may differ and the figure should be read with its year attached. The point of translating it is to
+communicate the challenges facing the UK power grid: to grow for national and social security, and
+to control runaway inflation and climate change.
 
 He has set out that argument in detail in his own published study, The real peak challenge of
 electrifying heat and transport in the UK:
 https://www.ventusltd.com/post/the-real-peak-challenge-of-electrifying-heat-and-transport-in-the-uk
+
+That study makes the case that the binding constraint is peak and diversity rather than annual
+energy. Electrification moves UK demand to somewhere between 500 and 700 TWh a year, against a
+present winter peak of 48.3 GW and 74.8 GW of derated generation capacity. A naive stress test, 28
+million homes at 3.5 kW of heat pump and 20 million vehicles at 7.4 kW, reaches 246 GW, while
+applying diversity brings the heat pump winter peak to about 40 GW and per home demand to about
+1.7 kW, on Energy Systems Catapult figures. Heat pumps at a seasonal coefficient of performance of
+3.5 to 5.0 use around 70 per cent less energy than a gas boiler, and an electric drivetrain converts
+about 70 per cent of its energy to motion against roughly 25 per cent for an internal combustion
+engine.
 
 ## Why open source, and why self funded
 
@@ -148,7 +158,6 @@ this file too. The claims above that currently carry a public source:
 | 75 TW of installed solar capacity by 2050, third Terawatt Workshop | https://www.pv-magazine.com/2023/07/01/weekend-read-waiting-is-not-an-option/ |
 | Solar may cover 75 per cent of global electricity demand by 2050 | https://www.pv-magazine.com/2021/04/13/solar-may-cover-75-of-global-electricity-demand-by-2050/ |
 
-Claims still to have their source attached, and to be treated as candidates until they do: the ONS
-primary energy figure and the year it reports; the 70 per cent hypothesis; and the Nordspolder and
-LEONI project records. Anyone is welcome to ask for them, or to challenge
-them.
+Claims still to have their source attached, and to be treated as candidates until they do: the
+70 per cent energy reduction hypothesis, and the Nordspolder and LEONI project records. Anyone is
+welcome to ask for them, or to challenge them.
