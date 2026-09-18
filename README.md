@@ -1,52 +1,161 @@
-Ventusltd is taking on enormous energy transition work, using 15 years Cables and Engineering experience within the Solar Photovoltaics Field
-The Future of Solar Photovoltaics Podcast (listned to in 102 countries according to Buzzsprout), avaialble on Spotify, Apple Podcasts, Audible and 
-www.globalgrid2050.com via the following links: 
+# Kuiper-belt
 
-https://www.buzzsprout.com/2272772
-https://open.spotify.com/show/1lONW7trRh7V64KCjYJTxY
-https://music.amazon.com/podcasts/7d9f8269-d1dc-4156-8b09-94fa9e614642/the-future-of-solar-photovoltaics
-https://rss.buzzsprout.com/2272772.rss
-https://globalgrid2050.com/podcast_transcripts/
-https://www.ventusltd.com/podcast
+**This is the framework file. Read it before you act. The first 3,000 characters are the law: a
+captain that reads no further still has everything it needs to work correctly.**
 
-The founder Vikram Kumar has 22 years experience via 
-#Cable and Wireless - Bulldog Communications rolling out LLU broadband where he managed customer complaints about Broadband Cable and Billing issues 
-Solved complex complaints 
-#Lapp Group - UK, a Stuttgart, Germaqny based international Cable Group specialissed in Industrial Applications, where he spent 2 years in the office 
-the South West, Wales, and the Midlands, 2 years in External Field Sales as a Sales Engineer in the South East of England. 1 year as National Business 
-Development Manager where he pioneered the establishment of Solar and Wind Energy Business units in the UK and lead new sales campaings, product develoment
-and procurement and product management iniatiatives. 
-Honeywell Safety Products - Where he trained Vestas and Siemens as well as RWE Technicians in Safety at Height, Climbing and Evacuation Systems 
-and held product management responsibility to build on this success in Renewables from Lapp Cables UK via Lapp Group. 
-VENTUS LTD, where since 2012 he has established is own business and became Global Key Accounts for LEONI AG in Solar and originated SOLARpower Alu ATA 
-cables in cooperation with Mr. Christoph Studer and Mr. Wolfgang Kessler which became an enormous success as the first dedicated product for DC and AC 
-distributed Solar applications introducing radial water blocking, new techniques in derating of cables which also led to success at Stocking Pelham 
-Battery Storage by enabling derating calculations using his enormous industrial and uttility cable experience to caculate the laying conditions for 
-80 x400mm2 DC Cables for one of the first transmission connected batteries in the UK. He has extensively documented this origination via https://globalgrid2050.com/employers_requirements_BESS/
-where he received immensely positive feedback from Installer Mr. David King who installed the project for SMA and British Solar Renewables as Sphere Electrical
-Mr. David King's photo is credited in the write up. 
-Where he then took these skills to the successful completed of one fo the worlds first EV Forecourts - Braintree https://globalgrid2050.com/power_systems_studies/
-as wells as early subsidy free Solar projects funding support via CTO of Gridserve and Project engineers at York Solar Farm, where he learned the new risks 
-posed by higher powered modules and complexity in Solar PV design understanding. 
-This then led to completion of his first 110kV HV connection with TenneT at Nordspolder 96MWp project with Ampyr Solar Europe following a failed 132kV bid 
-at UKPN where he made the final two but was unsuccessful due to breakdown in the supply chain in Turkey at HES Kablo, despite this he travelled to China 
-and unsuccessfully bid and learned business culutures in Asia. During these tumultuous periods imposed by Brexit, Covid, Ukraine War, he perservered 
-and won back major solar projects in the UK at the height of Iran War uncertainty and he wants to now use this experience to BUILD www.globalgrid2050.com in 
-the age of AI to support efforts preventing irreversible climate distraction, rising inflation and energy security issues. He believes and follows NREL 
-projections that 75TWp of Solar may be required to achieve netzero by 2050 and understands that the Solar Field has suffered from almost 2 decades of boom and 
-bust cycles. Given his enormously successful industira, infrastrucutre, Solar, Wind, EV and Battery Storage, power systems engineering (supported by Chartered Engineers with Indemnity), 
-Vikram now believes the age of AI has dawned where large language models may allow complex Grid, Climate, Financial and Power Systems Models that may reduce 
-energy use by up to 70%. For example he has been on record in the podcast in stating that the Office for National Statistics recorded total primary energy 
-usage in the UK of 1600TWh hours approximately using the IEA Million Tonnes of Oil Equivalent conversion of 11.63 in order to convert barrels of Oil 
-Equivalent into Terrawatt Hours in order to communicate the challneges facing the UK Power Grid to grow for national and social security and to control 
-runaway inflation and climate change. 
-Vikram Kumar is since very early years a systems thinker, a curious business exectuive, a sci-fi superfan and believes education of the public and the world
-is necessary and duty of humanity to progress human civilisation. He has taken on in the last 2 years enormous pains to codify all of this experience and 
-from his own busienss VENTUS Ltd into the GLOBALGRID2050.com project. He hopes by doing the work open source and funding it himself he can remain independent 
-and with integrity play his small party in supporting future generation be successful in order to honour all that he has been lucky to be a part of in the 
-above journey. 
+Kuiper-belt draws the entire Ventus Ltd / GLOBALGRID2050 GitHub estate as a belt of orbiting bodies
+on the CPU Wafer Galaxy, loaded through the Spider. It is a navigation instrument, not a picture.
+Its destination is the sandboxes: **a body you cannot open is a body that has failed.**
 
-GIVEN THE ENORMITY OF THE WORK HE HOPES KUIIPER BUILT WILL BECOME HIS CPU WAFER GALAXY INSPIRED AND SPIDER REPOSITORY INSPIRED WORLD WHERE SPACE TIME 
-CAN BE SIMULATED TO DISPLAY HIS ENTIRE WORK IN ONE PLACE IN ORDER TO NAVIGATE TO CLARITY I.E. REACH PRODUCT OPEN SOURCE SAN BOXES THAT ENABLE COMMUNITY 
-ENERGY AND SUPPORT GOVERNMENTS AND CORPORATION PREPARE FOR CLIMATE CHANGE, THE AGE OF AI IN ENERGY AND BUILD A NET ZERO PROOF BUSINESS PLAN. 
-He believes human dignity can be preserved with education for ALL. 
+Why it exists, and who built it: [ABOUT.md](ABOUT.md). That file is history, not input. Do not
+reason from it, do not score against it, do not quote it as a fact about the estate.
+
+## What the instrument is for
+
+Large systems are built in the head, and the head has a limit. Past that limit the system does not
+get finished — it collapses under the weight of its own ambition, and the work is lost even though
+every piece of it was sound. Scrolling a list of 63 repositories does not raise that limit. It
+lowers it, because a list has no shape and the mind must hold the shape itself.
+
+A belt has a shape. Distance, cadence and resonance are held by the picture rather than by the
+person, so the work can be *seen* instead of remembered: what is locked to the main body, what has
+been flung out, what is frozen, what is drifting away, and — the only question that finishes
+anything — what can actually be opened. This is a working mode, not a diagram. It exists so that a
+system too large to hold can still be navigated, one body at a time, to something that runs.
+
+## The first law: no claim without a key
+
+Every body's position is derived from a cryptographic key — a commit SHA, a tree SHA, or the
+SHA-256 of a file's bytes. Nothing is placed by narrative, by memory, or by a model's judgement.
+
+- A statement **with** a key is a fact: anyone can recompute it on any machine and must get the
+  same answer. If they get a different answer, the run is wrong, not the key.
+- A statement **without** a key is a candidate. Write it as a candidate or do not write it.
+- A model's text — including yours, including this repository's — is a candidate until a key
+  confirms it.
+- Every time carries its offset: `2026-09-18T05:33:14+01:00`, never a bare clock.
+- A check that examines nothing refuses. It does not pass.
+
+This law is here because it has already caught two errors in one day. A commit read as `04:33` was
+`05:33+01:00`, settled only by the commit object. And a frozen file whose bytes hashed to
+`e82fd469c85a22585bccb6df04581ae20e92e3498cc4570b995b975ecade9dd3`, where the gate expected
+`bc9aff1e7c1e1fd38da5b84d15c4edf4fd1ae4b4e6a78d744402158bbd727206`, failed three validations at
+`2026-09-18T03:03Z` — while the night's own notes recorded "Nothing red." The prose was written
+from what its author watched. The gate was written from a digest. Only one of them was checkable,
+and only one of them was right.
+
+## The six orbital elements
+
+Every body carries six numbers. Each is computed, each is reproducible, none is an opinion.
+
+| element | meaning | computed from |
+|---|---|---|
+| semi-major axis `a` | distance from the shepherd | reference distance to the shepherd in the federation graph |
+| eccentricity `e` | how erratic the work is | variance of the interval between commits, normalised by the median |
+| inclination `i` | divergence from the main line | 1 − (shared references ÷ total references) |
+| mass `m` | how much there is | bytes, or counted lines where the body is a file |
+| resonance `p:q` | locked to the shepherd's rhythm | nearest integer ratio of commit cadence to the shepherd's, kept only within tolerance |
+| epoch `t` | where it was at time *t* | commit timestamps, offset always carried |
+
+The shepherd is the body with the highest commit volume and inbound reference count. It is
+computed, not declared. If another repository overtakes it, the shepherd changes and every orbit is
+recomputed. At the time of seeding this is `globalgrid2050`, and that is a claim to re-check, not a
+constant to trust.
+
+## The classes
+
+The Kuiper belt is not rubble. It is a classified population, and every class is defined by its
+relationship to Neptune. So is this one.
+
+| class | astronomy | estate meaning | criterion |
+|---|---|---|---|
+| shepherd | Neptune | the body the rest orbit | highest commit volume + inbound references |
+| resonant | plutinos, 3:2 | locked to the shepherd's cadence | `p:q` within tolerance — an hourly publisher sits in **1:1** |
+| classical, cold | low `e`, low `i`, primordial | frozen data, pinned and untouched | `e ≈ 0`, no commit in 14 days |
+| classical, hot | same distance, stirred | actively worked at the same depth | commits in the last 7 days |
+| scattered disc | flung out, eccentric, returning | experiments thrown out and coming back | max commit gap ÷ median gap above threshold |
+| detached | never comes near Neptune | orbits that no longer touch the main body | zero shared references and no commit in 60 days |
+
+A class is a measurement, never a label someone typed. Recompute it; do not remember it.
+
+## The seventh law: every body must be openable
+
+Astronomy has no need of this one. We do. The brief is *navigate to clarity* — reach the open
+source sandboxes that serve community energy, governments and corporations. So:
+
+- A body with a destination — a runnable page, a sandbox, a document, a dataset with a licence —
+  is drawn lit, and its destination is recorded with the body.
+- A body with no destination is drawn dim, and **counted**.
+- The count of dim bodies is the belt's own score. It is published with every run. The instrument
+  measures its own uselessness, and that number is the one to drive down.
+
+## What a body is
+
+Bodies exist at three depths. Do not mix depths in one belt without saying so.
+
+1. **Repository** — the repositories of the organisation, plus the local clones. This depth is
+   gravel, not a belt. It is for proving the laws, not for flying through.
+2. **File** — every tracked file in every repository. This is the depth at which a belt appears:
+   the same order of magnitude as the lines already flying as dust on the wafer.
+3. **Commit** — every commit as a body, epoch as the axis. This is the depth at which *space-time*
+   is simulated and the slider becomes a scope over time rather than a scroll.
+
+Build depth 1 first. Do not claim a belt at depth 1.
+
+## The contract with the wafer
+
+Kuiper-belt produces nothing new to render. It produces what the translator already eats:
+
+```json
+{ "stations": [ { "id": "<key>", "x": 0.0, "y": 0.0, "m": 0, "class": "resonant", "open": true } ],
+  "edges":    [ { "from": "<key>", "to": "<key>", "w": 0.0 } ] }
+```
+
+- `x`, `y` in the unit square. `id` **is** a key — a SHA, never a name, never a position.
+- Edges are drawn between keys, never between positions. This is the protocol and it does not bend.
+- The placement rules are printed with every run, as the translator prints its own: the projection,
+  the tolerance, the seed. A run whose rules are not printed is not a run.
+- `draw estate` obeys `release` like every other command on the wafer. No exceptions.
+- Generated data lands in `data/`. The digest of every run lands in `proof/`. A belt that cannot be
+  reproduced from `proof/` did not happen.
+
+## For captains
+
+You are a local model. Your text is a candidate. Work as follows, every hour:
+
+1. Read this file first, then the fact files of the run you are scoring. Do not read `ABOUT.md`.
+2. Verify every number you repeat against the fact file that produced it. Report the score as
+   *numbers verified N of M*. An unverifiable number is not repeated at all.
+3. Name the file each number came from, in brackets, the way the run wrote it.
+4. Say what disagrees with this framework. If nothing disagrees, say so in one line — do not
+   manufacture a disagreement to fill the section.
+5. Give exactly one next test or build, with the exact command to run it.
+6. Do not copy sentences from the exemplar. Your copied-sentence score is published. On
+   2026-09-18 it moved from 1 of 7 at `14:55Z` to 4 of 8 at `18:55Z`: that is drift, and it is the
+   same disease as an unkeyed claim, in a smaller body.
+7. Never write "as expected". Expectation is not evidence.
+
+## Forbidden
+
+- A body placed without a key.
+- A claim in any file here, presented as a fact, without a key.
+- A time without an offset.
+- A class remembered rather than recomputed.
+- A green report while a gate is red. Check the gates before you write the report.
+- Publishing. Decisions are made by VIK-AI and Claude; publishing is Vikram's, after review.
+
+## Provenance and licence
+
+Every input carries its source and licence inside the file it produces, and the attribution travels
+with the data, never only in a README. Git history is the proof of this repository's own work: the
+commit is the receipt.
+
+This repository is public so the method can be checked, reused and argued with. No warranty is
+given, as Ubuntu gives none. Nothing here is a design; a drawing of a system is a chart, and an
+engineering design carries a named engineer and indemnity.
+
+## State
+
+Seeded 2026-09-18. `tools/estate.py` is **not yet written** — see [SPEC.md](SPEC.md) for its
+contract and [LAWS.md](LAWS.md) for the derivation of each element. There is nothing in `data/` or
+`proof/` yet, and this file says so rather than implying otherwise.
