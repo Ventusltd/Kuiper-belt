@@ -25,7 +25,7 @@ The founder, Vikram Kumar, has 22 years of experience:
 customer complaints about broadband cable and billing issues and solved complex complaints.
 
 **Lapp Group UK**, a Stuttgart, Germany based international cable group specialised in industrial
-applications, where he spent 2 years in the office in the South West and Wales and the Midlands,
+applications, where he spent 2 years in the office on supporting field sales engineers in South West and Wales and the Midlands,
 2 years in external field sales as a sales engineer in the South East of England, and 1 year as
 National Business Development Manager, where he pioneered the establishment of solar and wind
 energy business units in the UK and led new sales campaigns, product development, procurement and
