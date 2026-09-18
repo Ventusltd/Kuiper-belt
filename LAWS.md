@@ -133,3 +133,40 @@ projection, the clamp bounds, and the exact commit range. Where a layout needs r
 is derived from the body's own key, so the same body always lands in the same place.
 
 **Falsified by:** one differing coordinate. That is a bug in the run, never a property of the belt.
+
+---
+
+## L10. Reconciliation: the bond grants only what its words grant
+
+Named for Portia's ruling. The bond entitled Shylock to a pound of flesh, and the court held that it
+gave him no jot of blood, because the words expressly said flesh. A claim grants what it states. It
+does not grant what follows from it by implication, by reasonableness, or by the confidence of
+whoever wrote it.
+
+When two records disagree, whether two hosts, two runs, two machines or a document and the estate it
+describes, the difference is settled by pinned evidence alone. Not by the more recent record, not by
+the more senior machine, not by a summary, and never by a model's judgement.
+
+Every reconciliation returns one of four verdicts:
+
+| verdict | meaning |
+|---|---|
+| `HONOURED` | the predicates that were actually evaluated were satisfied |
+| `OVERREACHED` | the claim asserts more than its evidence grants; the first concrete deviation is named |
+| `NOT EVALUATED` | listed, never merely counted, so the remainder becomes a queue of statements to refine |
+| `DISCLOSED` | an acknowledged gap, counted separately. Not a demerit, and it never waives a contradiction |
+
+Four rules bind the verdict:
+
+1. `HONOURED` covers only the predicates evaluated. It never implies that surrounding prose, omitted
+   runtime behaviour or unsupported physics claims were proved.
+2. A layer's own summary is not independent proof of that summary. Cross-check independent
+   representations, which is the lesson of the stale manifest.
+3. Every result carries the claim text, the parser rule, the source pins, the denominator and the
+   evaluated scope, so that any verdict can be followed to an exact field.
+4. `DISCLOSED` may never waive an unissued key, a numerical contradiction, or a feature that
+   violates the stated contract.
+
+**Falsified by:** a reconciliation resolved by recency, seniority or plausibility rather than by
+pinned evidence; a `HONOURED` returned where a predicate was not actually evaluated; or a
+`NOT EVALUATED` that gives a count instead of the statements.
