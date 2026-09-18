@@ -91,6 +91,7 @@ def main():
         last = stamps[-1] if stamps else 0
         age_days = (now.timestamp() - last) / 86400 if last else 9e9
         repo_info[name] = {'paths': n_paths, 'commits': len(stamps), 'median_gap': med,
+                           'first': stamps[0] if stamps else 9999999999,
                            'e': ecc, 'age_days': age_days,
                            'max_gap_ratio': (max(gaps) / med) if gaps and med else 0}
 
@@ -127,12 +128,20 @@ def main():
         return 'classical-hot'
 
     # ---- place, deterministically, from each body's own key ----
+    # Radius is age in the estate, not alphabetical rank of a hash. On the wafer r = sqrt(key)
+    # means something because the key is the order a line entered the estate, so radius is time.
+    # Sorting by blob SHA would sort by randomness and the field would carry no depth. Bodies are
+    # therefore ordered by the first commit of the oldest repository that holds them, then by key
+    # to break ties deterministically. Oldest work sits at the pupil, tonight's at the rim.
+    def home_of(sha):
+        return min(blobs[sha]['repos'], key=lambda n: (repo_info[n]['first'], n))
+    order = sorted(blobs, key=lambda s: (repo_info[home_of(s)]['first'], s))
     stations = []
     bodies = []
     n_bodies = len(blobs)
-    for i, sha in enumerate(sorted(blobs)):
+    for i, sha in enumerate(order):
         b = blobs[sha]
-        home = sorted(b['repos'])[0]
+        home = home_of(sha)
         cls = classify(home)
         # The estate's own placement law, unchanged: r from the body's ordinal among sorted
         # keys, theta by the golden angle. Position encodes identity, neighbours are related,
