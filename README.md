@@ -13,25 +13,25 @@ reason from it, do not score against it, do not quote it as a fact about the est
 ## What the instrument is for
 
 Large systems are built in the head, and the head has a limit. Past that limit the system does not
-get finished — it collapses under the weight of its own ambition, and the work is lost even though
+get finished, it collapses under the weight of its own ambition, and the work is lost even though
 every piece of it was sound. Scrolling a list of 63 repositories does not raise that limit. It
 lowers it, because a list has no shape and the mind must hold the shape itself.
 
 A belt has a shape. Distance, cadence and resonance are held by the picture rather than by the
 person, so the work can be *seen* instead of remembered: what is locked to the main body, what has
-been flung out, what is frozen, what is drifting away, and — the only question that finishes
-anything — what can actually be opened. This is a working mode, not a diagram. It exists so that a
+been flung out, what is frozen, what is drifting away, and what can actually be opened, which is
+the only question that finishes anything. This is a working mode, not a diagram. It exists so that a
 system too large to hold can still be navigated, one body at a time, to something that runs.
 
 ## The first law: no claim without a key
 
-Every body's position is derived from a cryptographic key — a commit SHA, a tree SHA, or the
+Every body's position is derived from a cryptographic key: a commit SHA, a tree SHA, or the
 SHA-256 of a file's bytes. Nothing is placed by narrative, by memory, or by a model's judgement.
 
 - A statement **with** a key is a fact: anyone can recompute it on any machine and must get the
   same answer. If they get a different answer, the run is wrong, not the key.
 - A statement **without** a key is a candidate. Write it as a candidate or do not write it.
-- A model's text — including yours, including this repository's — is a candidate until a key
+- A model's text, including yours, including this repository's, is a candidate until a key
   confirms it.
 - Every time carries its offset: `2026-09-18T05:33:14+01:00`, never a bare clock.
 - A check that examines nothing refuses. It does not pass.
@@ -40,7 +40,7 @@ This law is here because it has already caught two errors in one day. A commit r
 `05:33+01:00`, settled only by the commit object. And a frozen file whose bytes hashed to
 `e82fd469c85a22585bccb6df04581ae20e92e3498cc4570b995b975ecade9dd3`, where the gate expected
 `bc9aff1e7c1e1fd38da5b84d15c4edf4fd1ae4b4e6a78d744402158bbd727206`, failed three validations at
-`2026-09-18T03:03Z` — while the night's own notes recorded "Nothing red." The prose was written
+`2026-09-18T03:03Z`, while the night's own notes recorded "Nothing red." The prose was written
 from what its author watched. The gate was written from a digest. Only one of them was checkable,
 and only one of them was right.
 
@@ -70,7 +70,7 @@ relationship to Neptune. So is this one.
 | class | astronomy | estate meaning | criterion |
 |---|---|---|---|
 | shepherd | Neptune | the body the rest orbit | highest commit volume + inbound references |
-| resonant | plutinos, 3:2 | locked to the shepherd's cadence | `p:q` within tolerance — an hourly publisher sits in **1:1** |
+| resonant | plutinos, 3:2 | locked to the shepherd's cadence | `p:q` within tolerance, an hourly publisher sits in **1:1** |
 | classical, cold | low `e`, low `i`, primordial | frozen data, pinned and untouched | `e ≈ 0`, no commit in 14 days |
 | classical, hot | same distance, stirred | actively worked at the same depth | commits in the last 7 days |
 | scattered disc | flung out, eccentric, returning | experiments thrown out and coming back | max commit gap ÷ median gap above threshold |
@@ -80,11 +80,11 @@ A class is a measurement, never a label someone typed. Recompute it; do not reme
 
 ## The seventh law: every body must be openable
 
-Astronomy has no need of this one. We do. The brief is *navigate to clarity* — reach the open
+Astronomy has no need of this one. We do. The brief is *navigate to clarity*: reach the open
 source sandboxes that serve community energy, governments and corporations. So:
 
-- A body with a destination — a runnable page, a sandbox, a document, a dataset with a licence —
-  is drawn lit, and its destination is recorded with the body.
+- A body with a destination, whether a runnable page, a sandbox, a document or a dataset carrying
+  a licence, is drawn lit, and its destination is recorded with the body.
 - A body with no destination is drawn dim, and **counted**.
 - The count of dim bodies is the belt's own score. It is published with every run. The instrument
   measures its own uselessness, and that number is the one to drive down.
@@ -93,11 +93,11 @@ source sandboxes that serve community energy, governments and corporations. So:
 
 Bodies exist at three depths. Do not mix depths in one belt without saying so.
 
-1. **Repository** — the repositories of the organisation, plus the local clones. This depth is
+1. **Repository.** The repositories of the organisation, plus the local clones. This depth is
    gravel, not a belt. It is for proving the laws, not for flying through.
-2. **File** — every tracked file in every repository. This is the depth at which a belt appears:
+2. **File.** Every tracked file in every repository. This is the depth at which a belt appears:
    the same order of magnitude as the lines already flying as dust on the wafer.
-3. **Commit** — every commit as a body, epoch as the axis. This is the depth at which *space-time*
+3. **Commit.** Every commit as a body, epoch as the axis. This is the depth at which *space-time*
    is simulated and the slider becomes a scope over time rather than a scroll.
 
 Build depth 1 first. Do not claim a belt at depth 1.
@@ -111,7 +111,7 @@ Kuiper-belt produces nothing new to render. It produces what the translator alre
   "edges":    [ { "from": "<key>", "to": "<key>", "w": 0.0 } ] }
 ```
 
-- `x`, `y` in the unit square. `id` **is** a key — a SHA, never a name, never a position.
+- `x`, `y` in the unit square. `id` **is** a key: a SHA, never a name, never a position.
 - Edges are drawn between keys, never between positions. This is the protocol and it does not bend.
 - The placement rules are printed with every run, as the translator prints its own: the projection,
   the tolerance, the seed. A run whose rules are not printed is not a run.
@@ -127,7 +127,7 @@ You are a local model. Your text is a candidate. Work as follows, every hour:
 2. Verify every number you repeat against the fact file that produced it. Report the score as
    *numbers verified N of M*. An unverifiable number is not repeated at all.
 3. Name the file each number came from, in brackets, the way the run wrote it.
-4. Say what disagrees with this framework. If nothing disagrees, say so in one line — do not
+4. Say what disagrees with this framework. If nothing disagrees, say so in one line, do not
    manufacture a disagreement to fill the section.
 5. Give exactly one next test or build, with the exact command to run it.
 6. Do not copy sentences from the exemplar. Your copied-sentence score is published. On
@@ -156,6 +156,6 @@ engineering design carries a named engineer and indemnity.
 
 ## State
 
-Seeded 2026-09-18. `tools/estate.py` is **not yet written** — see [SPEC.md](SPEC.md) for its
+Seeded 2026-09-18. `tools/estate.py` is **not yet written**. See [SPEC.md](SPEC.md) for its
 contract and [LAWS.md](LAWS.md) for the derivation of each element. There is nothing in `data/` or
 `proof/` yet, and this file says so rather than implying otherwise.

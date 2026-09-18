@@ -1,4 +1,4 @@
-# LAWS — the derivation of every number a body carries
+# LAWS: the derivation of every number a body carries
 
 Each law below states what is measured, how it is computed, and what would prove it wrong. A law
 that cannot be falsified is not a law and does not belong here. Read [README.md](README.md) first.
@@ -9,7 +9,7 @@ bodies `b` references. All logarithms are natural.
 
 ---
 
-## L1 — The shepherd is computed, never declared
+## L1. The shepherd is computed, never declared
 
 ```
 shepherd = argmax_b ( |C(b)| / max_b |C(b)|  +  |inbound_refs(b)| / max_b |inbound_refs(b)| )
@@ -23,7 +23,7 @@ three candidates.
 
 ---
 
-## L2 — Semi-major axis `a`: distance from the shepherd
+## L2. Semi-major axis `a`: distance from the shepherd
 
 `a` is the shortest reference path from the body to the shepherd in the federation graph, mapped to
 the drawable annulus:
@@ -39,14 +39,14 @@ Bodies at `hops = 1` sit close in; unreachable bodies (`hops = ∞`) are placed 
 
 ---
 
-## L3 — Eccentricity `e`: how erratic the work is
+## L3. Eccentricity `e`: how erratic the work is
 
 ```
 e = clamp( stdev(gaps(b)) / median(gaps(b)) , 0, 0.95 )
 ```
 
 A body committed to on a perfect rhythm has `e = 0` and orbits in a circle. A body worked in bursts
-separated by silence has a high `e` and a long, thin orbit — which is the true shape of an
+separated by silence has a high `e` and a long, thin orbit, which is the true shape of an
 experiment, and should look like one. Bodies with fewer than 3 commits have undefined `e` and are
 drawn circular with the flag `e_undefined`, never with a guessed value.
 
@@ -54,7 +54,7 @@ drawn circular with the flag `e_undefined`, never with a guessed value.
 
 ---
 
-## L4 — Inclination `i`: divergence from the main line
+## L4. Inclination `i`: divergence from the main line
 
 ```
 i = 1 - ( |refs(b) ∩ refs(shepherd)| / |refs(b)| )      , |refs(b)| > 0
@@ -62,14 +62,14 @@ i = 1                                                    , |refs(b)| = 0
 ```
 
 A body that depends on what the shepherd depends on lies flat in the plane of the work. A body that
-depends on nothing the rest of the estate depends on stands out of the plane — visibly, which is
+depends on nothing the rest of the estate depends on stands out of the plane, visibly, which is
 the point. High inclination is not a fault; it is information.
 
 **Falsified by:** an `i` computed from names rather than from resolved references.
 
 ---
 
-## L5 — Mass `m`: how much there is
+## L5. Mass `m`: how much there is
 
 At repository depth, `m` is the sum of tracked file sizes in bytes. At file depth, `m` is counted
 lines for text and bytes for binary, and which was used is recorded per body. Mass sets drawn size
@@ -79,7 +79,7 @@ on a log scale, `radius ∝ log(1 + m)`, so that one large body cannot hide a hu
 
 ---
 
-## L6 — Resonance `p:q`: locked to the shepherd's rhythm
+## L6. Resonance `p:q`: locked to the shepherd's rhythm
 
 Let `T(b) = median(gaps(b))` and `T(s)` the same for the shepherd. Take the ratio `r = T(b) / T(s)`
 and find the simplest `p/q` with `p, q ≤ 8` such that
@@ -88,7 +88,7 @@ and find the simplest `p/q` with `p, q ≤ 8` such that
 | r - p/q | / (p/q) <= 0.05
 ```
 
-If one exists, the body is `resonant` and carries `p:q`. If none does, it is not resonant — and the
+If one exists, the body is `resonant` and carries `p:q`. If none does, it is not resonant, and the
 run records *no resonance*, never the nearest ratio dressed up as one. A body publishing on the
 hour against a shepherd publishing on the hour is `1:1`, and this must be re-measured every run,
 because a stopped task looks exactly like a locked one until you check the timestamps.
@@ -97,7 +97,7 @@ because a stopped task looks exactly like a locked one until you check the times
 
 ---
 
-## L7 — Epoch `t`: where the body was at time *t*
+## L7. Epoch `t`: where the body was at time *t*
 
 Every element above is a function of the commits up to `t`. With `t` as an axis the belt becomes
 space-time: rewind and bodies return to earlier orbits, resonances form and break, dim bodies light
@@ -108,7 +108,7 @@ at or before `t` only. No interpolation from the present backwards.
 
 ---
 
-## L8 — Openness: the only law that judges
+## L8. Openness: the only law that judges
 
 A body is `open` when a destination can be resolved *and fetched*: a published page returning 200,
 a runnable entry point, a document, or a dataset carrying a licence. The destination is recorded
@@ -125,7 +125,7 @@ does not print it is not a run.
 
 ---
 
-## L9 — Reproducibility
+## L9. Reproducibility
 
 Two runs over the same commits, on any two machines, must produce identical coordinates for every
 body. Every source of variation is therefore fixed and printed: the seed, the tolerance, the

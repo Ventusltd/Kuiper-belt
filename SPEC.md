@@ -1,4 +1,4 @@
-# SPEC — `tools/estate.py`, the belt cartridge
+# SPEC: `tools/estate.py`, the belt cartridge
 
 The contract for the first buildable piece. It is a cartridge in the sense the wafer already uses:
 one small module, its own data, its own proof, loaded on demand. It does not grow for ever, and it
@@ -24,11 +24,11 @@ clear "not yet built" rather than a partial answer.
 
 Git, and nothing that needs a network at depth `repo`:
 
-- `git log --date=iso-strict` per body — timestamps with offsets, for `C(b)`, L3, L6, L7.
-- `git ls-files` with sizes — for `m`, L5.
-- Reference extraction — for `refs(b)`, L1, L2, L4. A reference is a resolved link to another body
+- `git log --date=iso-strict` per body, timestamps with offsets, for `C(b)`, L3, L6, L7.
+- `git ls-files` with sizes, for `m`, L5.
+- Reference extraction, for `refs(b)`, L1, L2, L4. A reference is a resolved link to another body
   in the estate, found in tracked files. A name that merely resembles a body is not a reference.
-- Destination probe — for L8. At depth `repo`, the recorded destination is fetched and its status
+- Destination probe, for L8. At depth `repo`, the recorded destination is fetched and its status
   recorded. An unfetched destination is `dim`, never assumed open.
 
 No input may be a human summary, a README's prose, or a model's text.
@@ -84,7 +84,7 @@ as the sixteen graphs already listed:
 
 That entry is a proposal. Adding it to the engine repository is a separate, reviewed change.
 
-## Acceptance — how we know version 1 works
+## Acceptance: how we know version 1 works
 
 A run at depth `repo` is accepted when all of the following hold, each checkable by a third party:
 
@@ -92,7 +92,7 @@ A run at depth `repo` is accepted when all of the following hold, each checkable
 2. Re-running with the same flags on a second machine yields byte-identical `estate.json`.
 3. Every `stations[].id` is a key, and every `edges[]` endpoint resolves to a station.
 4. The shepherd is printed with both normalised terms for the top three candidates.
-5. At least one body is classified in each of: resonant, classical, scattered, detached — or the
+5. At least one body is classified in each of: resonant, classical, scattered, detached, or the
    run states plainly which classes are empty and why.
 6. The L8 score is printed, and every `open` body's destination returned a status at run time.
 7. `rules.txt` contains every constant the run used.
