@@ -128,6 +128,7 @@ def main():
 
     # ---- place, deterministically, from each body's own key ----
     stations = []
+    bodies = []
     n_bodies = len(blobs)
     for i, sha in enumerate(sorted(blobs)):
         b = blobs[sha]
@@ -140,30 +141,35 @@ def main():
         k = i
         r = A_MIN + (A_MAX - A_MIN) * math.sqrt((k + 0.5) / n_bodies)
         theta = (k * GOLDEN) % (2 * math.pi)
-        stations.append({
-            'id': sha,
-            'x': round(0.5 + r * math.cos(theta) * 0.5, 6),
-            'y': round(0.5 + r * math.sin(theta) * 0.5, 6),
-            'm': b['size'],
-            'copies': b['copies'],                              # brightness: copies, not clutter
-            'class': cls,
-            'k': i,
-            'home': home,
-            'open': False,                                      # L8: not probed, so not open
-        })
+        x = round(0.5 + r * math.cos(theta) * 0.5, 6)
+        y = round(0.5 + r * math.sin(theta) * 0.5, 6)
+        # The renderer's contract, taken from tools/networks.py in the drawing engine and not
+        # inferred: stations are [x, y, name], edges are [i, j] index pairs. The name is the key.
+        stations.append([x, y, sha])
+        bodies.append({'k': i, 'id': sha, 'x': x, 'y': y, 'm': b['size'],
+                       'copies': b['copies'], 'class': cls, 'home': home, 'open': False})
 
     # A belt needs no edges. Bodies orbit independently, and an invented edge would be a claim
     # without a key. Stated rather than implied.
     edges = []
 
     os.makedirs(out, exist_ok=True)
-    net = {'stations': stations, 'edges': edges}
+    law = ('one body per distinct blob SHA; r = a_min + (a_max - a_min) * sqrt((k + 0.5) / n) '
+           'with k the body ordinal among sorted keys; theta = k * ' + str(GOLDEN) + '; '
+           'class is a property and never a position; no edges, because an unmeasured edge '
+           'would be a claim without a key')
+    net = {'name': 'estate', 'source': 'the tracked files of every repository under --roots, by blob SHA',
+           'attribution': 'content identifiers issued by git; no third party data',
+           'law': law, 'stations': stations, 'edges': edges}
     net_json = json.dumps(net, sort_keys=True, separators=(',', ':'))
     with open(os.path.join(out, 'estate-network.json'), 'w', newline='\n') as f:
         f.write(net_json)
 
+    with open(os.path.join(out, 'estate-bodies.json'), 'w', newline='\n') as f:
+        json.dump({'schema': 'estate-bodies-v1', 'run': run_id, 'bodies': bodies},
+                  f, separators=(',', ':'), sort_keys=True)
     by_class = {}
-    for s in stations:
+    for s in bodies:
         by_class[s['class']] = by_class.get(s['class'], 0) + 1
     total_paths = sum(r['paths'] for r in repo_info.values())
 

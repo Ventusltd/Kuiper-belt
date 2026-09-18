@@ -1,0 +1,18 @@
+asof 2026-09-19T00:44:05+01:00
+seed kuiper-2026-09-18
+depth blob
+roots C:/Users/vikra/Documents/GitHub
+a_min 0.16
+a_max 0.92
+golden_angle 2.399963229728653
+e_clamp 0.95
+resonance_tolerance 0.05
+resonance_max_pq 8
+cold_days 14
+hot_days 7
+detached_days 60
+scatter_ratio 4.0
+shepherd globalgrid2050
+shepherd_top_three globalgrid2050 2.0000; pipelinenews 1.2431; gridatlas 1.0527
+git git version 2.55.0.windows.3
+open_probe none, every body recorded dim
