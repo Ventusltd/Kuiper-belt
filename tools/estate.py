@@ -126,20 +126,20 @@ def main():
             return 'classical-cold'
         return 'classical-hot'
 
-    BAND = {'shepherd': 0.00, 'resonant': 0.18, 'classical-hot': 0.36,
-            'classical-cold': 0.55, 'scattered': 0.75, 'detached': 0.93}
-
     # ---- place, deterministically, from each body's own key ----
     stations = []
+    n_bodies = len(blobs)
     for i, sha in enumerate(sorted(blobs)):
         b = blobs[sha]
         home = sorted(b['repos'])[0]
         cls = classify(home)
-        h = hashlib.sha256((seed + sha).encode()).digest()
-        jitter = int.from_bytes(h[:4], 'big') / 2**32          # 0..1, from the key itself
-        band = BAND[cls]
-        r = A_MIN + (A_MAX - A_MIN) * (band + 0.07 * jitter)
-        theta = (i * GOLDEN) % (2 * math.pi)
+        # The estate's own placement law, unchanged: r from the body's ordinal among sorted
+        # keys, theta by the golden angle. Position encodes identity, neighbours are related,
+        # and density is uniform. Class is a property of a body, never a position: moving a
+        # body because of its class would be colouring without a function.
+        k = i
+        r = A_MIN + (A_MAX - A_MIN) * math.sqrt((k + 0.5) / n_bodies)
+        theta = (k * GOLDEN) % (2 * math.pi)
         stations.append({
             'id': sha,
             'x': round(0.5 + r * math.cos(theta) * 0.5, 6),
@@ -147,6 +147,7 @@ def main():
             'm': b['size'],
             'copies': b['copies'],                              # brightness: copies, not clutter
             'class': cls,
+            'k': i,
             'home': home,
             'open': False,                                      # L8: not probed, so not open
         })

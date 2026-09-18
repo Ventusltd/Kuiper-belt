@@ -1,0 +1,15 @@
+{
+ "bodies": 19202,
+ "by_class": {
+  "classical-cold": 11,
+  "classical-hot": 5,
+  "detached": 112,
+  "resonant": 71,
+  "scattered": 14518,
+  "shepherd": 4485
+ },
+ "repositories": 66,
+ "run": "20260918T231829Z",
+ "shepherd": "globalgrid2050",
+ "tracked_paths": 41601
+}
