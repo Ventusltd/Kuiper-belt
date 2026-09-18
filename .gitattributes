@@ -1,2 +1,9 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Text is stored and checked out with LF, so the file on disk is the file that ships,
+# and a digest taken on one machine matches a digest taken on another. See LAWS.md, L9.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary

@@ -8,7 +8,10 @@ on the CPU Wafer Galaxy, loaded through the Spider. It is a navigation instrumen
 Its destination is the sandboxes: **a body you cannot open is a body that has failed.**
 
 Why it exists, and who built it: [ABOUT.md](ABOUT.md). That file is history, not input. Do not
-reason from it, do not score against it, do not quote it as a fact about the estate.
+reason from it, do not score against it, do not quote it as a fact about the estate. Study its
+method if you like, never its content: it is a worked example of the first law below, applied to a
+biography, and four errors came out of it the first time the law was applied. [EVIDENCE.md](EVIDENCE.md)
+holds the numbers it rests on.
 
 ## What the instrument is for
 
@@ -150,8 +153,9 @@ Every input carries its source and licence inside the file it produces, and the 
 with the data, never only in a README. Git history is the proof of this repository's own work: the
 commit is the receipt.
 
-This repository is public so the method can be checked, reused and argued with. No warranty is
-given, as Ubuntu gives none. Nothing here is a design; a drawing of a system is a chart, and an
+This repository is public so the method can be checked, reused and argued with. Code is licensed
+under Apache-2.0, see [LICENSE](LICENSE); documentation and generated data under CC BY 4.0. No
+warranty is given, as Ubuntu gives none. Nothing here is a design; a drawing of a system is a chart, and an
 engineering design carries a named engineer and indemnity.
 
 ## State
