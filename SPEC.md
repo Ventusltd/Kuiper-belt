@@ -45,6 +45,13 @@ proof/<run-id>.json            digests, counts, score, and the exact command lin
 `stations[].id` is the body's key: at depth `repo`, the SHA-1 of `origin/HEAD` at `--asof`; at file
 depth, the blob SHA. Never a name. Names live in `bodies.json` beside the key, for humans.
 
+`bodies.json` also carries `hosts`, the list of hosts the body was observed on, and `twin_state`,
+one of `CERTIFIED`, `SUSPECT`, `UNCERTIFIED` or `NO KEYS`, taken from the twin register. A body
+present on one host only is drawn dimmer at its rim. A body whose hosts disagree is drawn **pink**,
+per the Quantum Star Protocol's colour law, and so is every link through it. Host is a property of a
+body, never a boundary in the picture: the belt draws a split estate exactly as it draws a unified
+one, because git is git.
+
 `rules.txt` prints, at minimum: `--asof`, `--seed`, the annulus bounds `a_min`/`a_max`, the `e`
 clamp, the resonance tolerance and `p, q` ceiling, the openness timeout, the shepherd and the two
 normalised terms that chose it, and the git version.
@@ -98,6 +105,21 @@ A run at depth `repo` is accepted when all of the following hold, each checkable
 7. `rules.txt` contains every constant the run used.
 
 Nothing above requires the drawing to look good. The drawing comes after the numbers are true.
+
+## The twin register, and why there is no per key comparison
+
+`tools/entangle_hosts.mjs` observes each repository on both hosts and returns one of the four L10
+verdicts. `tools/twin_register.mjs` then joins those verdicts to the key index in
+`star-electron-star/entangle.json`, which records keys per repository.
+
+Keys inherit the host certification of the tree that contains them. A commit SHA is a Merkle root
+over the whole tree, so one matching commit certifies every key inside it, and 128,369 keys are
+settled by 65 comparisons rather than 128,369. Comparing keys individually across hosts would be a
+check that cannot fail, and by the first law a check that examines nothing refuses rather than
+passes.
+
+Below 95 per cent certified the register prints a report and exits non zero. It does not write a
+claim of entanglement, matching the threshold `entangle.py` already applies.
 
 ## Explicitly out of scope for version 1
 
