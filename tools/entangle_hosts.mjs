@@ -61,8 +61,16 @@ for (const b of bodies) {
 
   let pushed = null;
   if (PUSH) {
-    // Non destructive. GitLab push-to-create makes the project on first push.
-    try { git(b.dir, ['push', 'gitlab', `${branch}:${branch}`]); git(b.dir, ['push', '--tags', 'gitlab']); pushed = 'ok'; }
+    // Mirror the ESTATE, not this desk. Fetch origin first, then push origin's ref.
+    // Pushing the local working copy mirrors whatever staleness sits on this machine, which on
+    // 2026-09-18 copied a fourteen commit old globalgrid2050 to the second host and then
+    // correctly reported the divergence it had just created.
+    try {
+      git(b.dir, ['fetch', '--quiet', 'origin', branch]);
+      git(b.dir, ['push', 'gitlab', `refs/remotes/origin/${branch}:refs/heads/${branch}`]);
+      try { git(b.dir, ['push', '--tags', 'gitlab']); } catch { /* tags are best effort */ }
+      pushed = 'ok';
+    }
     catch (e) { pushed = 'refused: ' + String(e.stderr || e.message).split('\n')[0]; }
   }
 
