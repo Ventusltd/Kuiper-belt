@@ -207,6 +207,8 @@ Promise.all([tsv('cosmos/repos.tsv'), tsv('cosmos/wafer.tsv')]).then(([rr, ww]) 
       T.PASS = T.T1_running_total_equals_direct_sum && T.T2_work_is_green_and_silence_is_dark; window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL'); }, 400); }
   if (new URLSearchParams(location.search).get('selftest') === 'new') { selftest = {}; tween = null; setTimeout(() => showNew(24), 300); }
   if (new URLSearchParams(location.search).get('selftest') === 'phone') setTimeout(phoneSelftest, 500);
+  { const mr = (new URLSearchParams(location.search).get('selftest') || '').match(/^repo:(.+)$/);
+    if (mr) setTimeout(() => repoSelftest(decodeURIComponent(mr[1])), 500); }
 }).catch(() => { hud.textContent = 'cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });
 
 // ------------------------------------------------------------------------ camera and address
@@ -260,6 +262,30 @@ function describe(a){
     + '\ncommit <b>' + a.c.sha + '</b>  ' + new Date(a.c.unix*1000).toISOString().slice(0,16) + 'Z  ·  line ' + fmt(a.m + 1) + ' of ' + fmt(a.c.lines)
     + '\nthe text itself:  python tools/key.py ' + a.k;
 }
+// THE SAME ARITHMETIC THE SHADER USES, written out in the page so it can be checked against it.
+// issuedBelow(k) is how many keys were issued below address k: a running total to the start of the
+// commit that owns k, plus however far into that commit k lies. The fragment shader computes this
+// exact expression for every pixel to decide its shade, so if these two ever disagree the picture
+// is wrong, and proof 7 is the check that they do not.
+function issuedBelow(k){ const c = commits[findBy('k0', k)]; return c.cum + Math.min(Math.max(k - c.k0, 0), c.k1 - c.k0); }
+// which repository owns the key at radius r: -1 is silence, -2 is off the wafer
+function ownerAt(r){ const kc = r*r; if (!(kc < SPACE)) return -2; const c = commits[findBy('k0', kc)];
+  return (kc >= c.k0 && kc <= c.k1) ? c.repo : -1; }
+// a repository's lines counted through the running totals alone, never by adding its commits up
+// HOW WIDE A REPOSITORY IS ON THE SCREEN. A key at radius r sits in a ring of 2 r dr addresses,
+// so one pixel holds 2 r / zoom addresses and a commit of L lines is L zoom / 2 r pixels wide.
+// Under one pixel, not one pixel centre can fall inside it and the light is invisible. That is a
+// fact about the wafer, not a fault in the drawing, and the page says it rather than hiding it.
+function widestRunPx(ri, z){
+  const span = (k0, k1) => (k1 - k0) * z / (2 * Math.sqrt((k0 + k1)/2));
+  let w = 0, a = -1, b = -1;
+  for (const c of commits) {
+    if (c.repo === ri && a >= 0 && c.k0 === b) { b = c.k1; }                 // no silence between them: one unbroken run
+    else if (c.repo === ri) { if (a >= 0) w = Math.max(w, span(a, b)); a = c.k0; b = c.k1; }
+    else if (a >= 0) { w = Math.max(w, span(a, b)); a = -1; }
+  }
+  return a >= 0 ? Math.max(w, span(a, b)) : w; }
+function linesByRunningTotals(ri){ let t = 0; for (const c of commits) if (c.repo === ri) t += issuedBelow(c.k1) - issuedBelow(c.k0); return t; }
 function keyAt(wx, wy){ const r = Math.hypot(wx, wy), kc = Math.round(r*r), span = Math.ceil(6*r + 8); let best = -1, bd = 0.6;
   for (let k = Math.max(0, kc - span); k <= Math.min(SPACE-1, kc + span); k++) { const p = keyPlace(k), d = Math.hypot(p[0]-wx, p[1]-wy); if (d < bd) { bd = d; best = k; } }
   return best; }
@@ -314,7 +340,17 @@ function draw(){
                 : 'UNRESOLVED · up to ' + words(1/(Math.PI*zoom*zoom)) + ' keys to a pixel · each pixel’s issued count is computed from the law, not drawn');
   if (points) L.push(fmt(total) + ' issued keys from ' + fmt(segs.length) + ' commits passed to the GPU in ' + ms.toFixed(0) + ' ms');
   L.push('the whole · ' + fmt(N) + ' issued + ' + fmt(SPACE - N) + ' silent = ' + fmt(SPACE) + ' addresses');
-  if (litRepo >= 0) L.push('LIGHT · ' + repos[litRepo].name + ' · ' + words(repos[litRepo].lines) + ' lines in ' + fmt(repos[litRepo].commits) + ' commits, wherever in time they fall');
+  if (litRepo >= 0) { const rt = linesByRunningTotals(litRepo), rr = repos[litRepo];
+    // the number on screen is the one the shading is made of, not the one the belt declared; if
+    // they differ the HUD says so rather than picking the prettier of the two
+    L.push('LIGHT · ' + rr.name + ' · ' + words(rt) + ' lines in ' + fmt(rr.commits) + ' commits, wherever in time they fall'
+      + (rt === rr.lines ? ' · running totals agree with the belt' : ' · DISAGREEMENT: the belt says ' + fmt(rr.lines) + ', the running totals say ' + fmt(rt)));
+    const wpx = widestRunPx(litRepo, zoom);
+    // Said exactly, because 269 pixels of a repository whose widest run is a tenth of a pixel are
+    // lit: the runs are so close together that pixel centres keep landing inside them. The claim
+    // is about the run, not about the light.
+    if (wpx < 1) L.push('FINER THAN ONE PIXEL at this zoom · its widest unbroken run is ' + wpx.toFixed(4)
+      + ' px across · it can light a pixel only where one happens to fall inside it · zoom in to see it whole'); }
   L.push(zoom >= 1 ? 'zoom ' + zoom.toFixed(1) + ' px per key spacing' : 'zoom 1 px = ' + words(1/zoom) + ' units');
   hud.textContent = L.join('\n');
   o2.clearRect(0,0,ov.width,ov.height);
@@ -384,6 +420,65 @@ function finishSelftest(c, n, lines){
               T3_no_flash_on_the_silent_centre: pp[0] < 40 && pp[1] < 40,
               new_commits: n, new_lines: lines, boundary_key: c.k0, newBandPixel: nb, pupilPixel: pp };
   T.PASS = T.T1_new_is_one_band_beyond_everything_older && T.T2_boundary_key_resolves_to_a_new_commit && T.T3_flash_is_amber_on_the_new_band && T.T3_no_flash_on_the_silent_centre;
+  window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
+}
+// LIGHT A REPOSITORY, TESTED. ?selftest=repo:<name>, or repo:* for the largest one. Two questions.
+// ONE, the picture: walking outward from the centre, a pixel is green if and only if the key at
+// that pixel's centre belongs to that repository. A pixel whose radial span straddles a change of
+// owner is excluded and counted separately, because at this zoom one pixel covers hundreds of
+// millions of addresses and the shader and this loop need not agree on which side of the line it
+// falls. Every other pixel must agree exactly.
+// TWO, the number: the repository's line total added up through the running totals, which is the
+// arithmetic the shading itself is made of, must equal the direct sum of its commits, and both
+// must equal what cosmos/repos.tsv declared before any of this was drawn. Three sources, one
+// number, or the test fails.
+function repoSelftest(name){
+  const rp = (name === '*') ? repos.reduce((a, b) => b.lines > a.lines ? b : a)
+                            : repos.find(x => x.name.toLowerCase() === name.toLowerCase());
+  if (!rp) { window.__selftest = { PASS:false, asked_for:name, error:'no repository of that name is on this wafer' };
+    document.title = 'selftest FAIL'; return; }
+  let byRunning = 0, directly = 0, n = 0;
+  for (const c of commits) if (c.repo === rp.i) { byRunning += issuedBelow(c.k1) - issuedBelow(c.k0); directly += c.lines; n++; }
+  litRepo = rp.i; litK = [-1,-1]; litCi = null; newFrom = -1; flash = 0; pulse = -1; target = null; card.style.display = 'none';
+  tween = null; { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; } draw();
+  const W = cv.width, H = cv.height, Rpx = Math.sqrt(SPACE)*zoom;
+  const col0 = Math.round(W/2 - cx*zoom), row0 = Math.round(H/2 - cy*zoom);   // the wafer's own centre, in GL pixels
+  const span = Math.max(4, Math.floor(Rpx) - 1);
+  const strip = (x, y, w, h) => { const b = new Uint8Array(w*h*4); gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, b); return b; };
+  const east = strip(col0, row0, span, 1), north = strip(col0, row0, 1, span);
+  let lit = 0, dark = 0, wrong = 0, straddled = 0; const wrongAt = [];
+  function check(buf, i, wx, wy, hx, hy, where){
+    const own = ownerAt(Math.hypot(wx, wy));
+    if (ownerAt(Math.hypot(wx-hx, wy-hy)) !== own || ownerAt(Math.hypot(wx+hx, wy+hy)) !== own) { straddled++; return; }
+    const r0 = buf[i*4], g0 = buf[i*4+1], b0 = buf[i*4+2];
+    const green = g0 > 120 && g0 > r0 + 40 && g0 > b0 + 30;
+    if (green === (own === rp.i)) { green ? lit++ : dark++; }
+    else { wrong++; if (wrongAt.length < 8) wrongAt.push({ strip:where, pixel_from_centre:i,
+      key_belongs_to: own === -1 ? 'silence' : (own === -2 ? 'beyond the rim' : repos[own].name),
+      drawn: green ? 'green' : 'not green', rgb:[r0, g0, b0] }); }
+  }
+  const hudWhenLit = hud.textContent;                 // what the page told the reader while it was lit
+  const wy0 = cy + (row0 + 0.5 - H/2)/zoom, wx0 = cx + (col0 + 0.5 - W/2)/zoom, h = 0.5/zoom;
+  for (let i = 0; i < span; i++) check(east, i, cx + (col0 + i + 0.5 - W/2)/zoom, wy0, h, 0, 'east');
+  for (let i = 0; i < span; i++) check(north, i, wx0, cy + (row0 + i + 0.5 - H/2)/zoom, 0, h, 'north');
+  { const hm = homeCamera(); cx = hm.x; cy = hm.y; zoom = hm.z; litRepo = -1; dirty = true; draw(); }
+  const wpx = widestRunPx(rp.i, Rpx/Math.sqrt(SPACE));
+  const tooSmall = wpx < 1;
+  const said = /FINER THAN ONE PIXEL/.test(hudWhenLit);
+  const T = { repository: rp.name, commits: n, viewport:[W, H], wafer_radius_px: Math.round(Rpx), pixels_walked: 2*span,
+    // A pixel is green if and only if the key at its centre belongs to this repository. Nothing
+    // else is asserted: a repository under a pixel wide lights nothing, and the second test is
+    // that the page says that out loud instead of showing an empty wafer and letting it pass.
+    T1_no_pixel_disagrees_with_the_keys: wrong === 0,
+    T2_it_lights_pixels_or_the_page_says_it_is_too_small: lit > 0 || (tooSmall && said),
+    widest_unbroken_run_px_at_this_zoom: +wpx.toFixed(4), finer_than_one_pixel: tooSmall, the_page_said_so: said,
+    pixels: { green_and_owned_by_it: lit, not_green_and_not_owned_by_it: dark, disagreed: wrong, straddled_a_boundary_and_excluded: straddled },
+    first_disagreements: wrongAt,
+    T3_running_totals_equal_the_direct_sum: byRunning === directly,
+    T4_and_equal_what_the_belt_declared: directly === rp.lines,
+    lines_by_running_totals: byRunning, lines_added_directly: directly, lines_declared_by_the_belt: rp.lines };
+  T.PASS = T.T1_no_pixel_disagrees_with_the_keys && T.T2_it_lights_pixels_or_the_page_says_it_is_too_small
+        && T.T3_running_totals_equal_the_direct_sum && T.T4_and_equal_what_the_belt_declared;
   window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
 }
 // THE PHONE TEST, run by the page on itself with ?selftest=phone at whatever size the window is.
