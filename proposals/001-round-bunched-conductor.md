@@ -121,3 +121,99 @@ by it either. It stays CANDIDATE until option B measures it.
 resistance for a solar cable, because 5.1.1 requires tin: that correction was already pending and
 this is its authority. The cable database rows whose source is this standard can be checked
 against Table 1 one size at a time, from a private copy, publishing only pass or fail.
+
+## Addendum 2: a maker's published datasheet measures our assumption (19 September 2026)
+
+Source: Studer Cables AG, public datasheet for a 1500 V DC photovoltaic string cable, document
+0000461 V05, from the maker's own product page. Cited as a published key. No affiliation and no
+endorsement in either direction; their drawings and text are not copied here. Makers reserve the
+right to change values: check the current sheet.
+
+| 1 x 6 mm², as published by the maker | value | what it checks |
+|---|---|---|
+| conductor | tinned fine copper strand, IEC 60228 class 5 | agrees with EN 50618, 5.1.1 and 5.1.2 |
+| conductor diameter | 3.00 mm | our page draws 3.17 mm |
+| resistance | 3.39 milliohm per metre | exactly the IEC 60228 Table 3 maximum for metal coated class 5 |
+| outer diameter | 6.1 mm | under the EN 50618 Table 1 upper limit of 7.4 mm |
+| weight | 82 kg per km | a future check on metal plus polymer |
+| bending radius | 4 x outer diameter fixed, 5 x occasionally moved | the cable database carries these multiples |
+
+**Check 1, the whole cable.** 3.00 + 2 x (0.7 + 0.8) = 6.0 mm against a published 6.1 mm. The
+standard's thicknesses and the maker's diameters agree to a tenth of a millimetre. The chain
+conductor, insulation, sheath can be drawn from arithmetic and checked against a catalogue.
+
+**Check 2, the fill, and a thing worth knowing.** If the conductor were 84 wires of 0.30 mm inside
+a 3.00 mm circle, the fill would be 84 x 0.30² / 3.00² = **0.84**. Round wires in a round wall
+cannot reach that: even perfect honeycomb packing with no wall is 0.907, and a wall costs several
+points. So at least one of our two inputs, 84 or 0.30, is not what is inside this cable, and the
+standard allows that: **IEC 60228 does not define a conductor by its wires or its area. It defines
+it by its resistance** and, for class 5, a maximum wire diameter. "6 mm²" is a name. A conductor
+that just meets 3.39 ohm per km needs only about 5.1 mm² of copper before lay and tin are allowed
+for. Metal of about 5.3 mm² in a 3.00 mm circle is a fill of **0.75**, which is the figure the page
+assumed. The assumption was right; the wire count and diameter we fed it were nominal, not real.
+
+**What this changes in the proposal.**
+
+- The page should take the conductor diameter as an INPUT when a published one exists (3.00 mm
+  here) and DERIVE the wire diameter that fits n wires at the settled fill, flagged as derived,
+  instead of taking nominal wires and deriving a diameter nobody published.
+- Test 9: where a published conductor diameter is keyed, the drawn conductor matches it within 0.05 mm.
+- Test 10: the drawn metal area times the resistivity of copper gives a resistance no greater than the
+  Table 3 maximum. This is the test that matters electrically, and it ties the drawing to law L7.
+- The maker's own illustration of the section is a spiral of dots with the outer ring seated on a
+  round wall. That is option A. Option B remains the recommendation because it can be measured,
+  but A is evidently good enough for a maker's catalogue, and is one line.
+
+## Addendum 3: why the shape of a conductor has to be known precisely
+
+Reference: "DC Cable: The Overlooked Risk Of The $2 Trillion Solar Sector", Forbes Technology
+Council, 24 July 2025,
+https://www.forbes.com/councils/forbestechcouncil/2025/07/24/dc-cable-the-overlooked-risk-of-the-2-trillion-solar-sector/
+The article is not reproduced here. Its argument, in our words: direct current does not cross zero,
+so a fault does not put itself out; the usual protection often cannot see a small arc; there are
+tens of millions of kilometres of this cable, most of it 6 mm²; and the weak point is where cable
+meets connector, because a connector has to match the geometry of the cable and the crimp cannot
+be inspected by eye afterwards.
+
+That last point is a question about shape, and shape is arithmetic. The same "6 mm²" is several
+different objects:
+
+| conductor | how it is made | fill (metal over circle) | diameter for 6 mm² | status |
+|---|---|---|---|---|
+| solid, class 1 | one wire | 1.00 | 2.76 mm | exact: sqrt(4 x 6 / pi) |
+| concentric round, class 2, 7 wires | 1 + 6 | 7/9 = 0.778 | 3.13 mm | derived, exact, for nominal metal |
+| concentric round, many layers | 1 + 6 + 12 + 18 ... | tends to 3/4 exactly | - | derived: see below |
+| compacted round | the above, squeezed through a die | about 0.90 | about 8 % smaller than uncompacted | CANDIDATE fill |
+| bunched, class 5 | fine wires twisted with no fixed places | about 0.75 | 3.00 mm published by one maker | published, and derived from it |
+| bunched, class 6 | finer wires, more of them | not yet keyed | not yet keyed | CANDIDATE |
+| sector shaped | for multicore power cable, not solar string cable | - | - | not drawn |
+
+**The exact part.** A concentric conductor with k layers has n = 3k² + 3k + 1 wires across a width
+of 2k + 1 wires, so its fill is (3k² + 3k + 1) / (2k + 1)². That is 7/9, 19/25, 37/49, 61/81, and
+it falls towards **3/4 and never below it**. Every round stranded conductor that has not been
+compacted is about one quarter empty space. That quarter is what a crimp has to close.
+
+**Why a connector cares.**
+
+1. **Diameter.** The barrel is made for a diameter. From solid to stranded the same nominal size
+   runs from 2.76 mm to over 3.1 mm, and between makers of the same class it differs again,
+   because the standard fixes resistance, not diameter (Addendum 2).
+2. **Empty space.** A crimp works by squeezing the space out until metal bears on metal. At a fill
+   of 0.75 a quarter of the barrel is air before the tool closes. A tool set for one conductor and
+   used on another of a different fill closes too little or too much, and neither can be seen afterwards.
+3. **Surface.** The surface of the wires, per unit of metal, goes as one over the wire diameter.
+   84 wires of 0.30 mm and 189 wires of 0.20 mm carry the same metal, but the finer one has 1.5
+   times the surface: 1.5 times the tin, 1.5 times the area that can oxidise if the tin is
+   breached, and more, smaller contacts inside a crimp.
+4. **Roundness.** A cable gland and a connector seal grip the sheath. The standard allows the
+   overall diameter to vary by up to 15 % across one section (EN 50618, 7.3.3). A seal has to work
+   across that whole range, and a drawing that shows a perfect circle hides it.
+
+**What the engine should therefore be able to draw, and measure, for any conductor:** its
+diameter, its fill, its empty space, its wire surface per unit of metal, and its roundness, each
+marked exact, standard, published, derived or CANDIDATE. None of that is a connector design or
+an installation instruction. It is the geometry a person needs in front of them before they choose one.
+
+Provided as is, without warranty of any kind; a chart, not a design.
+
+See also https://github.com/Ventusltd/pv-arc-protection-circuit, the public repository that holds the engineering work on this subject; its commit history is a dated record.
