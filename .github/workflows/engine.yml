@@ -42,5 +42,5 @@ jobs:
           git add cosmos/standing.tsv cosmos/pulse.tsv
           git diff --cached --quiet && exit 0
           git commit -q -m "engine: lines standing, measured by GitHub Actions"
-          git pull -q --rebase origin "${GITHUB_REF_NAME}"
+          git pull -q --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push -q origin "HEAD:${GITHUB_REF_NAME}"
