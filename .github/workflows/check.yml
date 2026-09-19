@@ -1,0 +1,26 @@
+name: checking engineer
+
+# A second checking engineer, on GitHub's machine, on every push. It did not build the proof and it
+# cannot see the measuring machine, so it checks what the repository alone can prove: no private
+# name anywhere, the published data adds up, every tool and page parses, keys are in time order.
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check, and fail closed
+        run: python tools/ci_check.py
