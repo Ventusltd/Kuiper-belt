@@ -274,10 +274,16 @@ and the Quantum Twin Star already draws a principal star and its twin as two ins
 every point reflected through the centre. So `twins` as a command on the belt would split the
 population into two mirrored bodies by a **measured** predicate and let gravity separate them.
 
-The honest candidates for the predicate, all already measured per body:
-- `copies > 1` against `copies == 1` — duplicated against unique, 2,152 against 17,105
-- `open` against `dim` — reachable against unreachable, once the openness probe runs
-- host agreement — confirmed pair against broken pair, from the twin register
+**The predicate is decided** (owner, 19 September): **one twin holds the unique code, the other holds
+everything else.** Measured, already in the data, and it splits the estate 17,105 against 2,152.
+
+- twin A: `copies == 1` — **17,105 bodies**, content that exists exactly once in the estate
+- twin B: `copies > 1` — **2,152 bodies**, content that exists in more than one place
+
+Later, once the openness probe has run, the same command should take a second argument so it can
+also split on `open` against `dim`, and on host agreement from the twin register. Same mechanism,
+different measured predicate. But `unique` against `everything else` is the one to build first,
+because it answers the question the belt was drawn to answer.
 
 **The rule that governs it:** the split must be by something measured, never by a guess, and the two
 populations must be labelled so a reader knows which is which. A separation that cannot say what
