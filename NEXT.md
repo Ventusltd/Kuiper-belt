@@ -179,3 +179,30 @@ dimension can only be attributed by naming a client, leave it out.
 
 This is the same rule the estate already applies elsewhere: the drawing carries its inputs, the
 inputs carry their standard, and nothing carries a counterparty.
+
+## 132 kV: aluminium wire screen, not copper
+
+The 132 kV construction the author worked on was drafted by HES Kablo with an **aluminium wire
+screen**, not copper. He has already named that supplier publicly in ABOUT.md, so the name may be
+used; the pricing and commercial terms may not.
+
+Three consequences for the drawing, none of them cosmetic:
+
+1. **The screen stops being the brightest ring.** Copper is far denser than aluminium, so on the
+   X-ray reading of a section a copper screen blazes against a grey aluminium core. With an
+   aluminium screen, screen and conductor sit at nearly the same density and the section reads
+   almost flat. Whatever encodes material must show that, or the picture lies about what a
+   radiograph would reveal.
+2. **Wire count and size differ.** Aluminium's conductivity is about 61 per cent of copper's, so an
+   equivalent screen cross section needs materially more aluminium. The wire count and diameter must
+   come from the document, not from scaling the copper values.
+3. **The material belongs in the data.** `cable-network.json` currently names layers only. Each layer
+   should carry its material, so a drawing can be read correctly and an accessory can be matched:
+   a lug for aluminium is not a lug for copper, and that is a real ordering distinction.
+
+Source: the tender the author prepared, with its pricing spreadsheet and hyperlinks to every
+datasheet. **Not found in the Dropbox searched on 19 September** — looked for by folder name, file
+extension, keyword across all PDFs and spreadsheets, and by listing QuoteLog directly. It is
+elsewhere. One line from the author gives the path, and the drawing follows in minutes.
+
+Do not draw the 132 kV until that document is open. No dimension may be invented.
