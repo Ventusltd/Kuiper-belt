@@ -65,7 +65,7 @@ Push with: `cd _wt-estate ; git push origin HEAD:main`
 
 ## Fixed tonight, so nobody re-finds it
 
-`E:\particles-runserify-iterations.mjs` did one `page.goto` and called a Pages deploy lag a
+`E:/particles-runs/verify-iterations.mjs` did one `page.goto` and called a Pages deploy lag a
 failure, every hour. It now retries for up to 12 minutes, matching what the Wafer Development
 Environment workflow already does.
 
