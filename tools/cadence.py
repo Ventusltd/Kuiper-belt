@@ -52,6 +52,9 @@ def candidate(done):
         if d in done or d == '0001':                                # 0001 is the baseline, already public
             continue
         f = os.path.join(ROOT, d)
+        if os.path.exists(os.path.join(f, 'SUPERSEDED.txt')):       # a later iteration carries this one's work: not waiting, not a fault
+            HELD.pop(d, None)
+            continue
         v = os.path.join(f, 'verdict.json')
         if not os.path.exists(v):
             continue
