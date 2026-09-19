@@ -1,4 +1,30 @@
-# SPEC-INFINITE — every line in the estate, generated not stored
+# SPEC-INFINITE — the universe is everything git logged
+
+**The universe is everything git logged. The simulation is the whole of it, at once, in one view.**
+
+That is not a metaphor placed on top of a visualisation. It is the specification, and every rule
+below follows from it.
+
+**Distance is time, exactly as in the night sky.** Every star you see is a different past arriving
+in the same instant: Proxima four years old, Andromeda two and a half million. Look further out,
+look further back. The belt now obeys this: newest at the pupil where the observer stands, oldest at
+the rim. Flying outward is flying backward through the estate.
+
+**Everything git logged is in scope.** Not the working tree, not HEAD, not the tracked files. Every
+object git has ever recorded: 42,549 blobs, 9,396,220,285 bytes, 124,905,502 lines, across 9,887
+commits and 66 repositories. Deleted files are still there. Abandoned branches are still there.
+A line written once in 2024 and removed the next day is still a star, and it still shines from the
+distance its age puts it at.
+
+**Nothing is created and nothing is destroyed, only recomputed.** Positions come from ordinals,
+ordinals from a prefix sum over blob sizes, sizes from git's own headers. The simulation stores no
+coordinate and holds no truth of its own. Git is the universe; this is the telescope.
+
+**The honest limit, which the sky shares.** You cannot see every star: dust hides most of the
+galaxy, faint things fall below the eye's threshold, and there is a horizon beyond which light has
+not arrived. So the view shows an enormous, layered, incomplete truth and says nothing false about
+the part it shows. Draw everything. Resolve what the screen can resolve. Never pretend the dim part
+is empty.
 
 The next instrument. Every line of every tracked file in every repository, zoomable to the
 individual line, without storing a single coordinate. Target order: tens of millions.
