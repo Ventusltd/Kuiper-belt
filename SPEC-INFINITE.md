@@ -23,17 +23,38 @@ points. Zoom to a particle, invert the law, get the ordinal, resolve it to a lin
 
 ## The design
 
-**1. The line index, and it stays small.**
-Do NOT store a record per line. Store a record per blob: `blob SHA, line count`. Roughly two hundred
-thousand rows for the whole estate, a few megabytes. A global ordinal `k` then maps to a line by a
-prefix sum over blob line counts: find the blob whose cumulative range contains `k`, and the line is
-`k - start`. Both directions are O(log n) over the blob table.
+**1. THE INDEX IS BYTES, AND GIT ALREADY HAS IT. NOTHING IS COUNTED.**
 
-**2. Generation, never materialisation.**
-The full population is never held. For a given view, generate only the ordinals whose radius falls
-inside the visible annulus, at the density the zoom level justifies. Far out, take a deterministic
-stride so every drawn particle still carries its true `k`. Close in, generate every ordinal in range.
-Memory stays flat while the addressable space does not.
+Git knows every blob's SHA and every blob's size, and both come from the object header without
+reading a single byte of content:
+
+    git cat-file --batch-all-objects --batch-check='%(objectname) %(objecttype) %(objectsize)'
+
+That is the whole index. 45,082 blobs, 9,396,220,285 bytes, obtained in seconds. It is live: ask git
+again and it is current, with no cache to go stale and no count to re-run.
+
+**Git has no concept of a line.** Newlines live inside the bytes, so a line count means reading every
+byte of 8.75 GB. The renderer must therefore never be built on line counts. It is built on bytes.
+
+**The ordinal space is a prefix sum over blob sizes.** Sort the blobs by SHA, take the running total
+of their sizes, and every byte in the estate has a global ordinal. Position follows from the ordinal
+by the placement law, and the law inverts, so a screen position gives the ordinal back and the
+ordinal gives `(blob, byte offset)` by binary search over the prefix sums. **No coordinate is
+stored, no count is precomputed, and nothing can drift out of date.**
+
+**Line numbers are resolved lazily, one blob at a time.** When a reader zooms to a particle you have
+its blob and its offset. Read that one blob, which is kilobytes, count newlines up to the offset, and
+you have the line number and the code. Never read the estate to draw the estate.
+
+**2. Counting is for the claim, not for the picture.**
+
+"This estate holds N lines" is a public assertion, and under the first law an assertion needs a
+measurement with a key behind it. `tools/count_lines.py` exists for exactly that: run it, publish the
+number, diff `counts.json` between runs for change detection. It is sharded across twelve runners by
+content SHA because it is a real pass over 8.75 GB.
+
+**The engine must never wait for it.** The count answers a question about the estate. The renderer
+answers a question about a pixel. They do not depend on each other.
 
 **3. EVERYTHING. THERE IS NO SAMPLING.**
 
