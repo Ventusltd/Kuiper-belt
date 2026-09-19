@@ -51,7 +51,7 @@ def main():
     dst = os.path.join(SITE, rel)
     os.makedirs(os.path.join(dst, 'tools'))
     shutil.copy(os.path.join(KB, 'index.html'), dst)
-    for extra in ('conductor.html', 'PALETTE.md', 'CHAINS.md'):
+    for extra in ('conductor.html', 'phone.html', 'PALETTE.md', 'CHAINS.md', 'LAWS.md'):
         if os.path.exists(os.path.join(KB, extra)):
             shutil.copy(os.path.join(KB, extra), dst)
     shutil.copytree(os.path.join(KB, 'cosmos'), os.path.join(dst, 'cosmos'),
@@ -84,7 +84,7 @@ def main():
     io.open(p, 'w', encoding='utf-8', newline='\n').write(s)
 
     git('add', rel, 'index.html')
-    msg = ('PROOF %s: %s\n\n%s\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n'
+    msg = ('PROOF %s: %s\n\n%s\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n'
            'Claude-Session: https://claude.ai/code/session_01DGQ1FNfMmzNDkgnh5DycbN'
            % (n, title, io.open(md, encoding='utf-8').read().strip()))
     git('commit', '-q', '-m', msg)

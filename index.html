@@ -213,7 +213,8 @@ Promise.all([tsv('cosmos/repos.tsv'), tsv('cosmos/wafer.tsv')]).then(([rr, ww]) 
 let cx = 0, cy = 0, zoom = 1, dirty = true, tween = null, litRepo = -1, target = null;
 let pulse = -1, flash = 0, newFrom = -1, anim = null, selftest = null, litK = [-1,-1], litCi = null;
 let atHome = true;                                     // true while the camera has not been moved by hand
-const elHudTop = hud;
+const elHudTop = hud, elTop = document.getElementById('top'), elFoot = document.getElementById('foot');
+const narrow = () => innerWidth <= 640;                // one number, used by the layout and by the test
 function resize(){ cv.width = ov.width = innerWidth; cv.height = ov.height = innerHeight; gl.viewport(0,0,cv.width,cv.height);
   if (typeof layout === 'function') layout();
   if (atHome && SPACE) { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; tween = null; }   // turning the phone re-fits, moving by hand does not
@@ -224,8 +225,6 @@ function flyTo(x, y, z){ tween = { t0:performance.now(), x0:cx, y0:cy, z0:zoom, 
 // and be clear of them at the same time. layout() measures the panels as they really are after
 // every change of text or size, and safeBox() returns what is left. Nothing here is assumed: the
 // numbers come from getBoundingClientRect, which is what the browser actually laid out.
-const elTop = document.getElementById('top'), elFoot = document.getElementById('foot');
-const narrow = () => innerWidth <= 640;
 function layout(){
   elHudTop.style.top = narrow() ? elTop.offsetHeight + 'px' : '0px';   // on a phone the HUD sits under the header, not beside it
   card.style.bottom = (elFoot.offsetHeight + 10) + 'px';               // the card never hides the commands
@@ -414,7 +413,9 @@ function phoneSelftest(){
   const spread = Math.round(W*0.65) - Math.round(W*0.35);
   ev('pointermove', 22, Math.round(W*0.35) + 2*spread, Math.round(H*0.5));
   const zB = zoom; ev('pointerup', 21, 0, 0); ev('pointerup', 22, 0, 0);
-  { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; atHome = true; card.style.display = 'none'; dirty = true; draw(); }
+  // put the wafer back the way it was found: the test's own light is not part of the record
+  { const h = homeCamera(); cx = h.x; cy = h.y; zoom = h.z; atHome = true; litRepo = -1; target = null;
+    card.style.display = 'none'; dirty = true; draw(); }
   const T = { viewport:[W, H], narrow_layout:narrow(), wafer_centre_on_screen:[Math.round(scx), Math.round(scy)], wafer_radius_px:Math.round(Rpx),
     T1_no_permanent_panel_covers_the_wafer: worst >= 0, panels,
     T2_the_whole_wafer_is_on_the_screen: onScreen,
