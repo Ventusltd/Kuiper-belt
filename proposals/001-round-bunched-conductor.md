@@ -77,3 +77,47 @@ Added to `window.__selftest` on the page, and failing closed:
 - The tinned coating is a hatch, not a thickness.
 
 Provided as is, without warranty of any kind; a chart, not a design.
+
+## Addendum: what the cable standard itself says (19 September 2026)
+
+Read in a privately held copy of BS EN 50618:2014, Electric cables for photovoltaic systems. The
+standard is copyright and is not reproduced here; clauses and single values are cited so that
+anyone with their own copy can check them.
+
+| what | value | where |
+|---|---|---|
+| the conductor wires are tin coated, with no visible gaps in the coating | required | 5.1.1 |
+| the conductor is class 5 to EN 60228 | required | 5.1.2 |
+| the sheath gives the finished cable a practically circular shape | required | 5.3.2 |
+| ovality: any two overall diameters at one cross-section differ by no more than | 15 % | 7.3.3 |
+| 1 x 6 mm², insulation thickness, specified value | 0.7 mm | Table 1 |
+| 1 x 6 mm², sheath thickness, specified value | 0.8 mm | Table 1 |
+| 1 x 6 mm², mean overall diameter, upper limit (informative) | 7.4 mm | Table 1 |
+
+**So the question is settled by the standard, not by taste.** Round is a requirement, and it has a
+number: 15 %. The standard puts that requirement on the finished cable, through the sheath. It is
+the extrusion that makes the cable round, which is the physical argument for option B above: let
+the wires settle against a round wall.
+
+**This gives the page a whole cable to draw, and a check to fail.** Around the conductor of
+diameter D go 0.7 mm of insulation and 0.8 mm of sheath, so
+
+    overall diameter = D + 2 x (0.7 + 0.8) = D + 3.0 mm
+
+With the page's present D of 3.17 mm (84 wires of 0.30 mm at an assumed fill of 0.75) that is
+**6.17 mm, inside the 7.4 mm upper limit**. Turned round, the limit allows a conductor of up to
+4.4 mm, which a bundle of 84 wires of 0.30 mm reaches only at a fill of 0.39: far looser than any
+real bunch. The assumed fill is therefore not contradicted by the standard, and not confirmed
+by it either. It stays CANDIDATE until option B measures it.
+
+**Tests to add to the five above:**
+
+6. the drawn overall diameter is no more than the Table 1 upper limit for that size;
+7. the ovality of the drawn outline, measured across at least eight diameters, is within 15 %;
+8. the insulation and sheath are drawn at their specified thicknesses, and hatched as materials,
+   not coloured.
+
+**What this changes elsewhere.** Law L8 in Ventusltd/law must use the metal coated class 5
+resistance for a solar cable, because 5.1.1 requires tin: that correction was already pending and
+this is its authority. The cable database rows whose source is this standard can be checked
+against Table 1 one size at a time, from a private copy, publishing only pass or fail.
