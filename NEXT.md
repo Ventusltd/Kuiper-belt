@@ -291,3 +291,26 @@ divided it is decoration. And `release` must bring them back together.
 
 This is the most interesting of the three, because it makes the belt answer a question rather than
 just show a shape: *how much of this estate is duplicated, and where does it sit.*
+
+## DEFECT, LIVE AND MISLEADING: the HUD reports the wafer's count for a system that has its own
+
+When `draw kuiper` is active the HUD reads **"showing 245,170 of 250,174 lines - kuiper"**. A reader
+takes that to mean the Kuiper belt contains 245,170 members. **It does not. It contains 19,257
+bodies.** The 245,170 is how much of the wafer's dust was poured along those bodies, which is a
+rendering detail of the wafer, not a property of the belt.
+
+The log line is already correct and says both: *"draw kuiper: 19,257 bodies, 0 edges; 245,170 lines
+placed by: one body per distinct blob SHA..."*. The HUD is what a visitor actually reads, and it
+reports only the wafer's number.
+
+**This is live on a public page and it is the exact failure class this project exists to prevent:**
+a true number placed where it answers a different question. It applies to every network system, not
+just the belt — `draw underground` reports the same 245,170 beside a structure of 341 stops.
+
+**The fix:** when a network is drawn, the HUD must name the structure's own count first and the dust
+second, for example `19,257 bodies - 245,170 lines placed - kuiper`. The numbers are already measured
+and already in the log; only the HUD string needs to carry both.
+
+**Do it with eyes on it.** `hud()` in pilot.mjs is shared by all thirteen systems and by `scope` and
+`release`, so a blind change at four in the morning risks breaking the readout everywhere. It is
+small, but it is not trivial.
