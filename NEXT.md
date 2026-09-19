@@ -234,3 +234,25 @@ and pages 2 to 6 read in seconds. Alternatively the Read tool renders PDF pages 
 the screen here is aluminium and not copper, so it must not be drawn as the brightest ring.
 
 Every value goes in the file. No table is reproduced. Nothing is invented.
+
+## 132 kV screen: UKPN changed CWS to a larger AWS — check which revision each drawing shows
+
+UK Power Networks changed the screen on this construction from a **copper wire screen (CWS)** to an
+**aluminium wire screen (AWS)**, and the AWS is **larger**. That is expected: aluminium carries about
+61 per cent of copper's conductivity, so an equivalent screen cross section needs materially more
+metal. The change is a revision, not an alternative.
+
+**Consequence for the documents.** The six files in `UKPN HES.zip` were produced around that change,
+so **the schedule and the five HES drawings may not agree** on the screen. Before drawing anything
+outside the insulation, establish for each file which screen it shows and which revision it belongs
+to. Do not merge values across files that disagree.
+
+**Consequence for the drawing.** The screen must carry its material, and an AWS must not be rendered
+the way a CWS would be. Copper is far denser than aluminium, so on a radiograph a copper screen
+blazes against the conductor while an aluminium screen sits at nearly the same density and the
+section reads almost flat. Drawing an AWS as a bright ring would be a picture of a cable that does
+not exist.
+
+**Consequence for a buyer.** A lug or a screen connection for aluminium is not the one for copper.
+If the section is ever used to select accessories, the screen material is not a detail, it is the
+answer.
