@@ -1,90 +1,81 @@
-# NEXT — for whoever picks this up, including a fresh session
+# NEXT — the handover, for a fresh session or a swarm
 
-State at 2026-09-19T00:35+01:00. Read [README.md](README.md) first, then this.
+State at 2026-09-19T02:30+01:00. Read [README.md](README.md) first — its first 3,000 characters are
+the law. Then this. Everything below was measured, not remembered.
 
-## Where it stands
+## Done and live
 
-`tools/estate.py` works at blob depth and has been run. Output committed:
+`globalgrid2050.com/testcode/wafer-development-environment/202609190230-kuiper-belt/`
+Homepage → The Translator of Systems → **Kuiper**.
 
-- `estate-network.json` at the repository root, 3,112,373 bytes,
-  digest `bd049860f0aba89659cfbcbbf9681fdc83e52e001a59c6005200708cfc8868a8`
-- 66 repositories, 41,623 tracked paths, **19,222 bodies**, one per distinct blob SHA
-- shepherd computed, not declared: `globalgrid2050`, scoring 2.0000
-- placement is the estate's own law: `r` from the body's ordinal among sorted keys,
-  `theta = k * 2.399963229728653`. Class is a property, never a position.
-- `data/<run>/rules.txt` carries every constant used
-- `proof/<run>-estate.json` carries the digest and the counts
+- **19,257 bodies**, one per distinct blob SHA, from **66 repositories** and **41,658 tracked paths**
+  (41,647 appeared in an earlier note and matches no run — the file says 41,658).
+- Drawn with the wafer's own **250,174 numbered lines**, 245,170 placed.
+- Radius is age in the estate, angle is the golden angle, class is a property and never a position,
+  no edges because an unmeasured edge would be a claim without a key.
+- Generator: `tools/estate.py`. Reproducible byte for byte from a printed seed.
 
-Regenerate at any time with:
+## Committed locally, NOT pushed — branch `stage/kuiper-belt` in `_wt-estate`
 
-```
-python tools/estate.py --roots <dir containing the clones> --seed kuiper-2026-09-18
-```
+Push with: `cd _wt-estate ; git push origin HEAD:main`
 
-## The four jobs, in order, each with its proof
+- **The pulse.** `pulse` / `inject` / `pulse <blob SHA>` / `pulse <x,y>` / `pulse stop`. The engine has
+  no per-point colour hook, so light is made by dust share: `s = 1 + 14·f·g·copies`, front crosses in
+  9 s, total dust conserved every frame. Distance is **geometric, not electrical**, stated on the card
+  so it is never mistaken for `draw fault`, which is a real pandapower IEC 60909 study.
+  Proof: in the front band a duplicated body averages **453.2 dots against 43.5** for a unique one.
+- **The readable card.** Root cause was two cards in one region: `#panel` at z-index 4 under the
+  narration log `#plog` at 19, transparent, same pixels. Now 21 > 20 > 19 with separate lanes.
+  Real context ±10 lines, fetched from `raw.githubusercontent.com` at the recorded commit, shown
+  **only if that file's line N matches the LINES.md row for the key**. Two keyed sources must agree.
+  No neighbour is ever composed. Link is `github.com/<repo>/blob/<commit>/<path>#L<line>`, or no link.
+- **The menu**, borrowed from `gridatlas/atlas/modules/202609031958-menu-bar.js`. Five titles, all
+  panels hidden at rest, all 17 old presets present plus 14 more. At rest 12.8 per cent of the frame
+  is not canvas.
+- **Overnight Coding Runs** — a new homepage nest for the hourly iterations.
 
-### 1. Openness (L8). Highest value, smallest change.
+## Open, in priority order
 
-Every body is currently `dim 19,222 of 19,222`, because no destination probe ran. The address is
-already derivable from data `estate.py` collects and discards: the home repository, the commit, and
-the path. Compose the public URL, fetch it, record the status on the body as `open` and `href`.
+1. **Re-run the host pairing** with the corrected refspec (`8c2950b`):
+   `node tools/entangle_hosts.mjs --roots <dir> --namespace <ns> --push` then `node tools/twin_register.mjs`.
+   Last measured 55 matched, 9 divergent, 74.75 per cent of keys certified, below the 95 per cent
+   threshold. All 9 were staleness the old push behaviour created. The GitLab captain exits 1 every
+   hour until this is done — that is the gate working, not a fault.
+2. **Recalibrate the classes.** 14,524 of 19,257 in `scattered`. `SCATTER_RATIO = 4.0` is too
+   permissive. Derive thresholds from the observed distribution, not in advance. Until then no
+   meaning may be read from a class colour.
+3. **The V9.6.1 frozen file**, red since 2026-09-18T03:03Z, not re-run.
+   `uk_renewables_pipeline/v9.6.1/tests/check_v9_5_1.mjs` is `e82fd469…`; the gate expects `bc9aff1e…`.
+4. **Openness (L8).** Every body is `dim 19,257 of 19,257` because no destination probe ran. The
+   address is derivable from repo, commit and path — the card now proves those exist. Fetch it,
+   record the status, and the dim count becomes the belt's real score.
+5. **`flyTo` zoom floor.** `Math.max(view.zoom, 9)` in `app.mjs` fires whenever a line is selected and
+   the camera stays there. One line changes it; it alters the beam's behaviour, so it is a decision.
+6. **Count the estate honestly.** Sum `git log --numstat` additions across all 66 repositories, with
+   data paths reported separately, so every coverage claim finally has a denominator. One repository
+   alone holds 17,300 blobs and 5.7 GB at a mean of 329 kB — history is dominated by republished data,
+   not authorship.
+7. **`repositories: 66` vs 64** distinct `home` values among the bodies. Both are recorded. Reconcile.
 
-**Proof:** the dim count falls to a real number, and that number is the belt's own score.
-**Why first:** under L8 a body that cannot be opened has failed. Until this runs, the belt is a
-picture rather than an instrument.
+## Fragile — one machine only, fix these first if anything
 
-### 2. Render on the existing wafer. Do not build a new renderer.
+- `cvaa` detached at `6df14ed`, 48 uncommitted lines including 3 in `vaccines.lock`.
+- `galaxies-wafers-layers-wt`, branch `layers/learned-and-proofs` at `37c939f`, nowhere else.
+- `globalgrid2050` local main, one unpushed commit `4f3ff4f4`, modified README, three `r*.json`.
 
-`SPEC.md` says the belt produces nothing new to render, and that rule was broken once already:
-`preview-kuiper-belt.html` in this repository is a 2D canvas scatter that violates the colour law,
-has no physics, and should be treated as a scratch file, not a destination.
+## Fixed tonight, so nobody re-finds it
 
-The real contract, verified from live source: `pilot.mjs` does
-`fetch(new URL(name + '-network.json'))` and reads `.stations`, `.edges`, `.w`, `.x`, `.y`.
-So stage `estate-network.json` beside the other `<name>-network.json` files in a wafer version and
-add one `<option value="estate">`.
-
-**Proof:** `draw estate` answers on the wafer, the HUD shows the count, `release` returns the dust.
-**Note:** staging is mechanical. Publishing to the live site is Vikram's word, after review.
-
-### 3. Recalibrate the classes. They are wrong and it is recorded.
-
-14,537 of 19,222 bodies fall into `scattered` and only 16 across both classical bands. The cause is
-`SCATTER_RATIO = 4.0`, which is far too permissive for a repository holding one long quiet interval
-relative to its median. The thresholds were chosen in advance instead of derived from the observed
-distribution. That was the error.
-
-**Proof:** no class holds more than roughly a third, and each class names repositories a human
-recognises as belonging there.
-**Until then:** no meaning may be read into a class colour, and any page drawing them must say so.
-
-### 4. The join that makes zoom real.
-
-The key index maps `key -> repo, commit, path, line`. A body is a blob, and a blob is a file. So for
-any body you can list the numbered lines it contains, and from those the families, and from those
-the gates.
-
-**Proof:** select a body, get its keys, and `entangle` resolves every one of them. That is the
-moment belt view becomes wafer mode, and it needs no new concepts, only the join.
-
-## Also open, from the same session
-
-- Re-run the host pairing with the corrected refspec:
-  `node tools/entangle_hosts.mjs --roots <dir> --namespace <ns> --push`, then
-  `node tools/twin_register.mjs`. Last measured: 55 matched, 9 divergent, 2 not evaluated, and
-  74.75 per cent of keys certified, below the 95 per cent threshold. All 9 divergences were
-  staleness created by the old push behaviour, which `8c2950b` fixed.
-- The hourly `Ventus-GitLab-Captain` will keep exiting 1 until that re-run happens. That is the
-  gate working, not a fault.
-- `estate.py` is not yet in the hourly lane. Adding it is what makes the belt track new code
-  automatically. Blob keys need no issuance, so this is safe to automate.
-- Line keys are different and are **not** automatic. The key index is dated 2026-09-16T21:08:57Z
-  and 121,805 numbered lines have no family. Issuing keys is a governed act, not a script run, and
-  the ordering rule is Vikram's to set.
+`E:\particles-runserify-iterations.mjs` did one `page.goto` and called a Pages deploy lag a
+failure, every hour. It now retries for up to 12 minutes, matching what the Wafer Development
+Environment workflow already does.
 
 ## Things not to repeat
 
-- Do not build a second renderer.
-- Do not colour without a function, and do not move a body on account of its class.
-- Do not push the local working copy to a second host; push the origin reference.
-- Do not read a percentage without the date of the index it was measured against.
+- Do not build a second renderer. The belt is a dataset; the engine already exists.
+- Read the **producer** for a contract, never infer it from the consumer.
+- Open the page before describing it. Every error in this project's worst night came from reasoning
+  instead of looking, and each was settled in seconds once someone looked.
+- Do not colour without a function, and never move a body on account of its class.
+- Push `origin`'s ref to a second host, never the local working copy.
+- No percentage without the date of the index it was measured against.
+- Publishing is Vikram's word. Agents commit; they do not push.
