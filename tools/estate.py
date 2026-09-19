@@ -135,7 +135,13 @@ def main():
     # to break ties deterministically. Oldest work sits at the pupil, tonight's at the rim.
     def home_of(sha):
         return min(blobs[sha]['repos'], key=lambda n: (repo_info[n]['first'], n))
-    order = sorted(blobs, key=lambda s: (repo_info[home_of(s)]['first'], s))
+    # LOOK OUT, LOOK BACK. In the night sky distance IS time: the further away a star, the older
+    # the light reaching you. Proxima is four years old, Andromeda two and a half million, and both
+    # arrive in the same instant. The belt now obeys the same rule, so flying outward is flying
+    # backward through the estate. Newest work at the pupil, where you are standing; oldest at the
+    # rim, furthest away and furthest into the past. Ties broken by key so the run stays byte
+    # identical.
+    order = sorted(blobs, key=lambda s: (-repo_info[home_of(s)]['first'], s))
     stations = []
     bodies = []
     n_bodies = len(blobs)
