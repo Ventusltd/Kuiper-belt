@@ -32,6 +32,7 @@ STATE = os.path.join(ROOT, 'published.json')
 LOG = os.path.join(ROOT, 'LOG.md')
 GAP = 1200
 _last_said = [None]
+HELD = {}                                                       # iteration -> why it is being held, shown on the HUD
 
 
 def say(msg):
@@ -60,6 +61,28 @@ def candidate(done):
         pages = [os.path.join(f, p) for p in os.listdir(f) if p.endswith('.html')]
         if any(os.path.getmtime(p) > os.path.getmtime(v) for p in pages):
             continue                                                # edited after it was tested: test it again first
+        newest = max(os.path.getmtime(p) for p in pages)
+        # THE RELEASE GATE. Three healthy phases and a sound earth (tools/swarm.py), then a written review by L1 or L2.
+        sw = os.path.join(f, 'swarm.json')
+        if not os.path.exists(sw) or os.path.getmtime(sw) < newest:
+            subprocess.run([sys.executable, os.path.join(HERE, 'swarm.py'), d], capture_output=True, text=True, timeout=600)
+        if not os.path.exists(sw):
+            HELD[d] = 'the swarm could not run'
+            continue
+        swarm = json.load(io.open(sw, encoding='utf-8'))
+        if not swarm.get('release_ready'):
+            bad = [k for k in ('L1', 'L2', 'L3') if not swarm.get(k, {}).get('healthy')] + ([] if swarm.get('E', {}).get('sound', True) else ['EARTH'])
+            HELD[d] = 'fault on ' + ' '.join(bad)
+            continue
+        rv = os.path.join(f, 'REVIEW.md')
+        first = io.open(rv, encoding='utf-8').read().strip().split('\n')[0].upper() if os.path.exists(rv) else ''
+        if not os.path.exists(rv) or os.path.getmtime(rv) < newest:
+            HELD[d] = 'waiting for a written review by L1 or L2'
+            continue
+        if not first.startswith('PASS'):
+            HELD[d] = 'review says: ' + first[:80]
+            continue
+        HELD.pop(d, None)
         return d, verdict
     return None, None
 
@@ -67,11 +90,13 @@ def candidate(done):
 def look():
     st = state()
     wait = GAP - (time.time() - st['last'])
+    d, verdict = candidate(st['published'])                         # looked at every minute, so the swarm runs and the HUD knows why a thing is held
     if wait > 0:
+        json.dump(HELD, io.open(os.path.join(ROOT, 'held.json'), 'w', encoding='utf-8', newline='\n'), indent=1)
         return
-    d, verdict = candidate(st['published'])
+    json.dump(HELD, io.open(os.path.join(ROOT, 'held.json'), 'w', encoding='utf-8', newline='\n'), indent=1)
     if not d:
-        say('slot open, nothing qualifies: no tested, full marks, unpublished iteration')
+        say('slot open, nothing released: ' + ('; '.join('%s %s' % kv for kv in sorted(HELD.items())) or 'nothing tested and waiting'))
         return
     f = os.path.join(ROOT, d)
     note = io.open(os.path.join(f, 'NOTE.md'), encoding='utf-8').read().strip()
