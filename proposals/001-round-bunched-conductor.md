@@ -124,8 +124,7 @@ against Table 1 one size at a time, from a private copy, publishing only pass or
 
 ## Addendum 2: a maker's published datasheet measures our assumption (19 September 2026)
 
-Source: Studer Cables AG, public datasheet for a 1500 V DC photovoltaic string cable, document
-0000461 V05, from the maker's own product page. Cited as a published key; their drawings and text are not copied here. Makers reserve the
+Source: a cable maker's public datasheet for a 1500 V DC photovoltaic string cable from the maker's own product page. Cited as a published key; their drawings and text are not copied here. Makers reserve the
 right to change values: check the current sheet.
 
 | 1 x 6 mm², as published by the maker | value | what it checks |
@@ -221,7 +220,7 @@ See also https://github.com/Ventusltd/pv-arc-protection-circuit, the public repo
 
 Vikram's point, from 22 years of selling this cable: makers work to the resistance the standard
 sets, not to a weight or an area, so a "6 mm²" conductor may hold less than 6 mm² of copper. The
-same maker's public datasheet (document 0000461 V05) gives three sizes, which is enough to test it.
+same maker's public datasheet () gives three sizes, which is enough to test it.
 
 Copper at 20 °C has a resistivity of 17.241 ohm mm² per km (the international annealed copper
 standard, 100 % IACS). The least copper that meets a resistance R is therefore 17.241 / R, before
