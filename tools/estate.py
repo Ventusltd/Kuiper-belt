@@ -150,8 +150,13 @@ def main():
         k = i
         r = A_MIN + (A_MAX - A_MIN) * math.sqrt((k + 0.5) / n_bodies)
         theta = (k * GOLDEN) % (2 * math.pi)
-        x = round(0.5 + r * math.cos(theta) * 0.5, 6)
-        y = round(0.5 + r * math.sin(theta) * 0.5, 6)
+        # Centred on zero, matching every existing system. Measured from the live files:
+        # underground x [-0.893, 0.900], grid400 x [-0.537, 0.537], uk y [-0.900, 0.900].
+        # The renderer multiplies straight through with no centring, so a unit-square dataset
+        # would draw in the +x/+y quadrant at half scale. SPEC.md said "unit square"; SPEC.md
+        # was inferred from prose rather than measured, and was wrong.
+        x = round(r * math.cos(theta), 6)
+        y = round(r * math.sin(theta), 6)
         # The renderer's contract, taken from tools/networks.py in the drawing engine and not
         # inferred: stations are [x, y, name], edges are [i, j] index pairs. The name is the key.
         stations.append([x, y, sha])

@@ -1,0 +1,19 @@
+{
+ "asof": "2026-09-19T04:00:03+01:00",
+ "counts": {
+  "asof": "2026-09-19T04:00:03+01:00",
+  "authored_added": 57820668,
+  "authored_deleted": 11253909,
+  "command": "python tools/count_lines.py --roots C:/Users/vikra/Documents/GitHub --depth authored",
+  "commits": 9887,
+  "note": "GitLab adds nothing: the mirror holds the same objects with the same SHAs.",
+  "repositories": 66,
+  "run": "20260919T030003Z"
+ },
+ "digests": {
+  "authored.tsv": "95bb5320eba34fc3ceed124d6ac04be70170702b2d23f88296e544c424468d71",
+  "blob-lines.tsv": "11a9aa789ca4def10dd6a884228f72731ecdf0b0a1e9dfd3ed8f1425aaa3f4b6",
+  "counts.json": "9420cd91ad0c7e7a2b3cc68c8bb2282a642a897b5505d5bc8964855ad325b2a4"
+ },
+ "run": "20260919T030003Z"
+}

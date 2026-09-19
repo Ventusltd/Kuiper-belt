@@ -1,0 +1,20 @@
+{
+ "asof": "2026-09-19T01:11:54+01:00",
+ "bodies": 19257,
+ "by_class": {
+  "classical-cold": 11,
+  "classical-hot": 5,
+  "detached": 112,
+  "resonant": 73,
+  "scattered": 14529,
+  "shepherd": 4527
+ },
+ "command": "python tools/estate.py --roots C:/Users/vikra/Documents/GitHub --seed kuiper-2026-09-18",
+ "digest": "e251cac62c04fa26f03203a774e0fa9ac49be397adbaccdd619f9355718f8df4",
+ "dim": 19257,
+ "repositories": 66,
+ "run": "20260919T001154Z",
+ "score_dim_over_all": 1.0,
+ "shepherd": "globalgrid2050",
+ "tracked_paths": 41658
+}

@@ -1,0 +1,19 @@
+{
+ "run": "20260919T025001Z",
+ "asof": "2026-09-19T02:50:01.847Z",
+ "digest": "166317eb089217c5f9cdec2d0c7259c14586e7694b8285412386c4b5fad8f742",
+ "bodies": 67,
+ "verdicts": {
+  "NOT EVALUATED": 4,
+  "HONOURED": 57,
+  "OVERREACHED": 6
+ },
+ "command": "node tools/entangle_hosts.mjs --roots C:/Users/vikra/Documents/GitHub --namespace vikram.kumar12",
+ "rules": {
+  "host_a": "github",
+  "host_b": "gitlab",
+  "tolerance": "exact",
+  "push": false,
+  "asof": "2026-09-19T02:50:01.847Z"
+ }
+}

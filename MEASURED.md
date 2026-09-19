@@ -41,3 +41,37 @@ close, and it is closeable: the renderer is already proven well beyond 25 millio
 - Whether any of the 17,835 text blobs are generated rather than written. One repository alone
   averages 329 kB per blob, so a large share of those 25 million lines is data, not authorship.
   Until that is split out, **do not describe 25,335,587 as lines of code.** It is lines of text.
+
+## Authored lines — measured 2026-09-19T04:00:03+01:00
+
+| quantity | value |
+|---|---|
+| lines **added** by commits, all branches | **57,820,668** |
+| lines deleted | 11,253,909 |
+| net | 46,566,759 |
+| commits | 9,887 |
+| repositories | 66 |
+
+Method: `git log --all --numstat --format=%H` per repository, summing the added and deleted columns.
+Written to `data/authored.tsv` as `repo<TAB>added<TAB>deleted<TAB>commits`, sha256
+`95bb5320eba34fc3ceed124d6ac04be70170702b2d23f88296e544c424468d71`.
+
+**This is the number change detection should key on**, because it counts what entered the estate
+rather than what happens to be present. Re-run `tools/count_lines.py` and diff `data/counts.json`
+against the previous run: any change in `authored_added` is new work, and every figure carries the
+command and the timestamp that produced it.
+
+## The four numbers, so they are never conflated again
+
+| number | value | what it is |
+|---|---|---|
+| **wafer dust** | 250,174 | numbered lines with issued keys, what the wafer draws today |
+| **lines at HEAD** | 25,335,587 | text in distinct blobs currently present |
+| **lines authored** | 57,820,668 | added by commits across all history |
+| **content in history** | 8.75 GB / 45,082 blobs | every blob ever stored; line count not yet taken |
+| benchmark, not a count | 67,108,864 | 2^26 particles placed in 21.03 s. **Not a line count.** |
+
+The wafer therefore draws **0.43 per cent** of what has been authored.
+
+Three of those four are measured. The fourth, lines across all stored history, needs one pass over
+8.75 GB and is the remaining job: `python tools/count_lines.py --depth history`.

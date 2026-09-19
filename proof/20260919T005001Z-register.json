@@ -1,0 +1,12 @@
+{
+ "run": "20260919T005001Z",
+ "digest": "261e14457ec4c53b49d375f68e6868f51f74044d93dbe4683562bf4e5e5741ce",
+ "totals": {
+  "keys_in_index": 128369,
+  "certified": 99056,
+  "suspect": 29140,
+  "uncertified": 173,
+  "in_repos_not_observed": 0
+ },
+ "command": "node tools/twin_register.mjs "
+}

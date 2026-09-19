@@ -1,0 +1,10 @@
+{
+ "asof": "2026-09-19T04:00:03+01:00",
+ "authored_added": 57820668,
+ "authored_deleted": 11253909,
+ "command": "python tools/count_lines.py --roots C:/Users/vikra/Documents/GitHub --depth authored",
+ "commits": 9887,
+ "note": "GitLab adds nothing: the mirror holds the same objects with the same SHAs.",
+ "repositories": 66,
+ "run": "20260919T030003Z"
+}
