@@ -98,15 +98,9 @@ and the grey core. The two things an engineer looks for are eccentricity, the ga
 way round, and voids, a dark crescent at a screen interface where there should be none.
 
 **Sources for the inputs, per voltage:**
+- **Conductor classes, strands and cross sections, all sizes** — **IEC 60228**, already in the estate
+  (Vikram: in my repo). This is the one that gives wires per class and nominal areas, so it is the
+  primary input for the strand fix above, not BS 7870.
+- **EN 50618** — further sections and stranding, for the sizes IEC 60228 does not cover in the form needed.
 - **11 kV and 33 kV** — BS 7870-4.10, Vikram's licensed copy in Dropbox.
 - **132 kV** — TF Kable, Poland. Published manufacturer datasheets.
-
-**The licensing line, and it is not negotiable.** Use the standard privately to set the inputs for a
-size. Publish the DRAWING and only that cable's own inputs, citing BS 7870-4.10 as the reference the
-construction conforms to. Never publish a machine-readable copy of BSI's tables. Where a public
-dataset covering many sizes is wanted, take it from manufacturers' published datasheets, which carry
-the same wire counts and diameters and are freely citable — the same rule the estate already applies
-to REPD and OSM.
-
-Everything drawn stays an arrangement from stated inputs, not a design. A design carries a named
-engineer and indemnity.
