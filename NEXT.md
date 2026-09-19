@@ -104,3 +104,29 @@ way round, and voids, a dark crescent at a screen interface where there should b
 - **EN 50618** — further sections and stranding, for the sizes IEC 60228 does not cover in the form needed.
 - **11 kV and 33 kV** — BS 7870-4.10, Vikram's licensed copy in Dropbox.
 - **132 kV** — TF Kable, Poland. Published manufacturer datasheets.
+
+## DO NOT PUBLISH — an exclusion list is required before the openness job runs
+
+The estate holds material that is paid for or commercially private, named by the owner:
+engineering reports he purchased (Braintree among them) and his entire order book since 2012.
+**None of it may be published, listed, named or probed.**
+
+The exposure is not file contents. The belt publishes coordinates and blob SHAs, and a SHA reveals
+nothing. The exposure is **names**:
+
+1.  carries , the repository name, and the card resolves .
+   A path such as a client report filename discloses what is held even when nobody can open it.
+2. **Job 4, openness (L8), derives a public URL for every body and fetches it.** Run without an
+   exclusion list, that tool is pointed straight at private material. Do not run it until the list
+   exists.
+
+**Required before openness runs:**
+- An explicit exclusion list of repositories and path patterns, held in this repo, that
+   honours: excluded bodies are not keyed, not named and never probed.
+- The count of excluded bodies is published; the names are not. An exclusion that hides its own
+  existence cannot be audited.
+- Default deny for anything not positively matched as publishable, because a denylist fails open and
+  a path nobody anticipated is exactly how this leaks.
+
+The  repository already excludes commercial and contractual detail by policy, enforced by
+. The belt has no equivalent yet. That gap is this item.
