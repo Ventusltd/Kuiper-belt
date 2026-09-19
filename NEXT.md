@@ -256,3 +256,32 @@ not exist.
 **Consequence for a buyer.** A lug or a screen connection for aluminium is not the one for copper.
 If the section is ever used to select accessories, the screen material is not a detail, it is the
 answer.
+
+## Three asked for at the end of the night, 19 September
+
+**1. A preset for the light show.** `pulse` has a button in the preset bar but the picker list should
+carry it too, and the belt version should offer `pulse` the way it offers `draw kuiper`. One option
+and one entry. Trivial, just not done.
+
+**2. Does the pulse work zoomed in?** Unknown and untested. The pulse recomputes every body's dust
+share each frame from geometric distance, which is independent of camera zoom, so it should hold,
+but `flyTo` sets a zoom floor of 9 and nobody has watched a pulse while zoomed. **Candidate, not a
+fact.** Test it before claiming it.
+
+**3. Gravity separation into TWINS, not to one side.** The owner's correction, and it is the better
+idea. The estate already has the vocabulary: a twin is the pair of a key and the real code it names,
+and the Quantum Twin Star already draws a principal star and its twin as two instanced populations,
+every point reflected through the centre. So `twins` as a command on the belt would split the
+population into two mirrored bodies by a **measured** predicate and let gravity separate them.
+
+The honest candidates for the predicate, all already measured per body:
+- `copies > 1` against `copies == 1` — duplicated against unique, 2,152 against 17,105
+- `open` against `dim` — reachable against unreachable, once the openness probe runs
+- host agreement — confirmed pair against broken pair, from the twin register
+
+**The rule that governs it:** the split must be by something measured, never by a guess, and the two
+populations must be labelled so a reader knows which is which. A separation that cannot say what
+divided it is decoration. And `release` must bring them back together.
+
+This is the most interesting of the three, because it makes the belt answer a question rather than
+just show a shape: *how much of this estate is duplicated, and where does it sit.*
