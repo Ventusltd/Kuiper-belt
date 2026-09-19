@@ -135,6 +135,45 @@ def do_authored(rs):
     return rows
 
 
+
+def do_entries(rs, shard, of):
+    """EVERY ENTRY EVER ENTERED: every path in every commit's tree, duplicates included.
+
+    A file unchanged across 500 commits counts 500 times. This is the only count that does not
+    deduplicate, and it is far larger than the distinct-blob figure by design. Sharded by COMMIT
+    SHA so the slices are disjoint and sum to the whole.
+    """
+    entries = 0
+    lines = 0
+    commits_done = 0
+    cache = {}
+    for name, d in rs:
+        shas = [c for c in git(d, ['rev-list', '--all']).split()
+                if of == 1 or int(c[:8], 16) % of == shard]
+        for c in shas:
+            commits_done += 1
+            tree = git(d, ['ls-tree', '-r', c])
+            need = []
+            rows = []
+            for line in tree.splitlines():
+                p = line.split(None, 3)
+                if len(p) < 4 or p[1] != 'blob':
+                    continue
+                rows.append(p[2])
+                if p[2] not in cache:
+                    cache[p[2]] = None
+                    need.append(p[2])
+            if need:
+                cache.update(batch_count(d, need))
+            for sha in rows:
+                entries += 1
+                v = cache.get(sha)
+                if v and v > 0:
+                    lines += v
+        print('  entries %-30s %12s entries, %14s lines'
+              % (name, format(entries, ','), format(lines, ',')), file=sys.stderr)
+    return entries, lines, commits_done
+
 def write_tsv(path, d):
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         for sha in sorted(d):
@@ -146,7 +185,7 @@ def write_tsv(path, d):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--roots', default='.')
-    ap.add_argument('--depth', default='head', choices=['head', 'history', 'authored', 'all'])
+    ap.add_argument('--depth', default='head', choices=['head', 'history', 'authored', 'entries', 'all'])
     ap.add_argument('--out', default='data')
     ap.add_argument('--shard', type=int, default=0, help='0-based shard index')
     ap.add_argument('--of', type=int, default=1, help='total shards; the set is split by SHA')
@@ -199,6 +238,12 @@ def main():
         counts['history_binary_blobs'] = sum(1 for v in seen.values() if v == -1)
         counts['history_lines'] = sum(v for v in seen.values() if v and v > 0)
         write_tsv(os.path.join(a.out, 'blob-lines-history%s.tsv' % SUF), seen)
+
+    if a.depth in ('entries', 'all'):
+        e, l, c = do_entries(rs, a.shard, a.of)
+        counts['entries_ever'] = e
+        counts['entry_lines_ever'] = l
+        counts['commits_walked'] = c
 
     if a.depth in ('authored', 'all'):
         rows = do_authored(rs)
