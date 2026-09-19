@@ -31,7 +31,7 @@
    }
   },
   {
-   "body": "cable_selection",
+   "body": "unnamed-06",
    "branch": "main",
    "verdict": "HONOURED",
    "detail": "both hosts at 99839daa4019ac550d33ec8ee7e4c3d82c7819cd",
@@ -199,7 +199,7 @@
    }
   },
   {
-   "body": "crm",
+   "body": "unnamed-05",
    "branch": "main",
    "verdict": "HONOURED",
    "detail": "both hosts at 08b4918eae6d97d128e11d977b4b9f771ee67bdf",
@@ -475,7 +475,7 @@
    }
   },
   {
-   "body": "gis-sld-sandbox",
+   "body": "unnamed-01",
    "branch": "main",
    "verdict": "HONOURED",
    "detail": "both hosts at 3cb16e1fc62483d75f66b82b1e0eeb3810ee0706",
@@ -685,7 +685,7 @@
    }
   },
   {
-   "body": "Kuiper_belt",
+   "body": "unnamed-03",
    "branch": "main",
    "verdict": "HONOURED",
    "detail": "both hosts at 8c2950ba80ed7067962758d402524bff8f90cff7",
@@ -832,7 +832,7 @@
    }
   },
   {
-   "body": "pipelinenews-gridatlas-20260906",
+   "body": "unnamed-02",
    "branch": "main",
    "verdict": "HONOURED",
    "detail": "both hosts at 7ad64b2e8acd63ad3735f71a60a234cab41d74b4",

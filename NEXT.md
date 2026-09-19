@@ -156,7 +156,7 @@ card must name which one. Where a figure is missing, draw nothing rather than a 
 - **Strands, all sizes** — IEC 60228, already in the estate. EN 50618 beside it.
 
 **Then the join:** each drawn layer should offer the app that computes it, so the section becomes the
-front door to work that already exists — `cable_selection`, `star-cable-derating-star`,
+front door to work that already exists — `unnamed-06`, `star-cable-derating-star`,
 `cable-trench-or-drill`. Click the conductor, land on the derating maths.
 
 ## Taking dimensions from the author's own project documents — permitted, with a strict filter

@@ -1,10 +1,11 @@
 {
- "asof": "2026-09-19T04:00:03+01:00",
- "authored_added": 57820668,
- "authored_deleted": 11253909,
- "command": "python tools/count_lines.py --roots C:/Users/vikra/Documents/GitHub --depth authored",
- "commits": 9887,
+ "asof": "2026-09-19T04:06:28+01:00",
+ "command": "python tools/count_lines.py --roots C:/Users/vikra/Documents/GitHub --depth history",
+ "history_binary_blobs": 2403,
+ "history_blobs": 42545,
+ "history_lines": 124904978,
+ "history_text_blobs": 40142,
  "note": "GitLab adds nothing: the mirror holds the same objects with the same SHAs.",
  "repositories": 66,
- "run": "20260919T030003Z"
+ "run": "20260919T030628Z"
 }

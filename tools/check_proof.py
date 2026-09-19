@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tools/check_proof.py - THE CHECKING ENGINEER. Independent of whoever built the proof.
+r"""tools/check_proof.py - THE CHECKING ENGINEER. Independent of whoever built the proof.
 
 A proof is not checked by its author. Every proof published under "Kuiper: proofs" is examined
 here by a separate process that did not write it, on the measuring machine, for nothing:
