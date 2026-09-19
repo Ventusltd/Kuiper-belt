@@ -216,3 +216,44 @@ an installation instruction. It is the geometry a person needs in front of them 
 Provided as is, without warranty of any kind; a chart, not a design.
 
 See also https://github.com/Ventusltd/pv-arc-protection-circuit, the public repository that holds the engineering work on this subject; its commit history is a dated record.
+
+## Addendum 4: a nominal size is a resistance, checked across three sizes (19 September 2026)
+
+Vikram's point, from 22 years of selling this cable: makers work to the resistance the standard
+sets, not to a weight or an area, so a "6 mm²" conductor may hold less than 6 mm² of copper. The
+same maker's public datasheet (document 0000461 V05) gives three sizes, which is enough to test it.
+
+Copper at 20 °C has a resistivity of 17.241 ohm mm² per km (the international annealed copper
+standard, 100 % IACS). The least copper that meets a resistance R is therefore 17.241 / R, before
+any allowance for the wires being longer than the cable because they are twisted.
+
+| size | published R | least copper | share of nominal | published conductor Ø | circle | fill at least copper | fill if nominal |
+|---|---|---|---|---|---|---|---|
+| 4 mm² | 5.09 ohm/km | 3.39 mm² | 85 % | 2.45 mm | 4.71 mm² | 0.72 | 0.85 |
+| 6 mm² | 3.39 ohm/km | 5.09 mm² | 85 % | 3.00 mm | 7.07 mm² | 0.72 | 0.85 |
+| 10 mm² | 1.95 ohm/km | 8.84 mm² | 88 % | 3.90 mm | 11.95 mm² | 0.74 | 0.84 |
+
+**What the geometry says.** Round wires bunched in a round wall settle at a fill of about 0.75; this
+page measured that. A fill of 0.84 or 0.85 would need almost perfect honeycomb packing right up to
+the wall, which bunched wires do not do. So the published diameters are consistent with a metal
+area near the least the resistance allows, a few per cent above it for twist and tin, and are not
+consistent with the full nominal area. All three sizes say the same thing. The observation stands.
+
+**What does most of the work, and what does a little.** The standard does most of it: IEC 60228
+sets a maximum resistance for each nominal size and says nothing about area or weight, and those
+maxima can be met with roughly 85 to 90 % of the nominal area in good copper. Purity does a little:
+the best copper is about 1 to 2 % more conductive than the 100 % IACS reference, which saves 1 to
+2 % of metal, not 15 %. Tin works the other way: a tinned wire has slightly less copper for its
+diameter, which is why the standard allows tinned class 5 a higher resistance (3.39 against 3.30).
+
+**What the published weight cannot settle.** Taking the published weight and subtracting copper
+leaves the polymer. With least copper the polymer comes out at about 1.6 g/cm³ for all three sizes;
+with full nominal copper, about 1.25 g/cm³ for all three. Both are steady across the sizes and both
+are believable densities for a flame retardant halogen free compound, so weight alone does not
+decide it. A published compound density would. CANDIDATE until then. The geometry above is the
+stronger evidence.
+
+**What this changes in the engine.** A conductor is entered by its nominal size and its class. The
+engine looks up the maximum resistance, derives the least metal, and draws THAT metal inside the
+published or derived diameter. The title block shows three numbers side by side, never one:
+nominal area (a name), metal area (derived from resistance), and fill (measured from the drawing).
