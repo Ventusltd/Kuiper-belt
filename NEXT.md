@@ -206,3 +206,31 @@ extension, keyword across all PDFs and spreadsheets, and by listing QuoteLog dir
 elsewhere. One line from the author gives the path, and the drawing follows in minutes.
 
 Do not draw the 132 kV until that document is open. No dimension may be invented.
+
+## The UKPN 132 kV documents — found, and how to finish the drawing
+
+**Archive:** `C:/Users/vikra/Downloads/UKPN HES.zip`, 944,002 bytes, six files:
+
+- `ETS 02-4000 1x1600 132 kV - HDPE.pdf` — the specification, Appendix A Schedule of Technical
+  Particulars, single core 132 kV XLPE
+- `320241-B0918.681.1.01.pdf` through `320245-B0918.681.1.05.pdf` — five HES drawings
+
+**Already drawn** from page 1, live as `draw cable132`: 76/132(145) kV, 1600 mm2 aluminium Class 2
+Milliken compacted, 50.3 mm over conductor, 0.3 mm swellable semiconductive barrier tape, 53.3 mm
+over the extruded semiconductive XLPE conductor screen, 17 mm nominal XLPE, **87.3 mm over the
+insulation**. Conductor drawn as six Milliken segments with strand layers, not rings.
+
+**Still missing, and on pages 2 to 6:** the core screen, the **aluminium wire screen** (wire count
+and diameter), any binder or swellable tape over it, the bedding, and the **HDPE sheath** thickness
+and overall diameter. Without those the section stops at the insulation, which is how it currently
+ships, on purpose.
+
+**The blocker is a tool, not the document.** The PDF has 24 compressed streams and 370,345 bytes of
+decompressed content, but the fonts are subset encoded and simple text extraction returns nothing.
+There is no `pdftotext` or `pdftoppm` on this machine. Install poppler, or use a Python PDF library,
+and pages 2 to 6 read in seconds. Alternatively the Read tool renders PDF pages once poppler exists.
+
+**Then:** add the outer layers to `cable132-network.json`, and give every layer a material, because
+the screen here is aluminium and not copper, so it must not be drawn as the brightest ring.
+
+Every value goes in the file. No table is reproduced. Nothing is invented.
