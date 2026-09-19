@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""tools/publish_proof.py - publish one numbered proof to globalgrid2050.com, at most one per ten minutes.
+"""tools/publish_proof.py - publish one numbered proof to globalgrid2050.com, at most one per twenty minutes.
 
-    python tools/publish_proof.py <n> "<title>" "<one line for the homepage>" <proof.md>
+    python tools/publish_proof.py <n> "<title>" "<one line for the homepage>" <proof.md> [<folder to publish from>]
+
+With a fifth argument the pages and data are taken from that folder (a tested iteration on the E: drive)
+instead of from this repository. The tools always come from this repository.
 
 Copies the wafer page, its data and its tools into a stamped directory of the site worktree, adds
 PROOF.md, links it from the homepage nest "Kuiper: proofs", commits and pushes to main.
 
-SAFEGUARDS. Refuses if the last proof is less than ten minutes old. Refuses if any name of a
+SAFEGUARDS. Refuses if the last proof is less than twenty minutes old. Refuses if any name of a
 repository known not to be public appears in what is about to be published. Refuses if the site
 worktree is not at origin/main. Touches nothing on the homepage except its own nest.
 """
@@ -33,13 +36,14 @@ def git(*a):
 
 def main():
     n, title, small, md = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+    SRC = sys.argv[5] if len(sys.argv) > 5 else KB
     now = datetime.now(timezone.utc)
     stamps = sorted(d[:12] for d in os.listdir(os.path.join(SITE, BASE)) if re.match(r'^\d{12}-proof', d)
                     or d.endswith('-one-wafer'))
     if stamps:
         last = datetime.strptime(stamps[-1], '%Y%m%d%H%M').replace(tzinfo=timezone.utc)
-        if (now - last).total_seconds() < 600:
-            print('REFUSED: the last proof is %d s old; one per ten minutes' % (now - last).total_seconds())
+        if (now - last).total_seconds() < 1200:
+            print('REFUSED: the last proof is %d s old; one per twenty minutes' % (now - last).total_seconds())
             return 2
     git('fetch', '-q', 'origin')
     if git('rev-list', '--count', 'HEAD..origin/main').stdout.strip() != '0':
@@ -50,11 +54,13 @@ def main():
     rel = '%s/%s-proof-%s' % (BASE, stamp, n)
     dst = os.path.join(SITE, rel)
     os.makedirs(os.path.join(dst, 'tools'))
-    shutil.copy(os.path.join(KB, 'index.html'), dst)
-    for extra in ('conductor.html', 'phone.html', 'PALETTE.md', 'CHAINS.md', 'LAWS.md'):
+    for f in sorted(os.listdir(SRC)):                                # every page of the version, not a fixed list
+        if f.endswith('.html'):
+            shutil.copy(os.path.join(SRC, f), dst)
+    for extra in ('PALETTE.md', 'CHAINS.md', 'LAWS.md'):
         if os.path.exists(os.path.join(KB, extra)):
             shutil.copy(os.path.join(KB, extra), dst)
-    shutil.copytree(os.path.join(KB, 'cosmos'), os.path.join(dst, 'cosmos'),
+    shutil.copytree(os.path.join(SRC, 'cosmos'), os.path.join(dst, 'cosmos'),
                     ignore=shutil.ignore_patterns('commits', 'belt.tsv'))
     for t in ('key.py', 'wafer_keys.py', 'permanence.py'):
         shutil.copy(os.path.join(HERE, t), os.path.join(dst, 'tools'))
@@ -84,7 +90,7 @@ def main():
     io.open(p, 'w', encoding='utf-8', newline='\n').write(s)
 
     git('add', rel, 'index.html')
-    msg = ('PROOF %s: %s\n\n%s\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\n'
+    msg = ('PROOF %s: %s\n\n%s\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n'
            'Claude-Session: https://claude.ai/code/session_01DGQ1FNfMmzNDkgnh5DycbN'
            % (n, title, io.open(md, encoding='utf-8').read().strip()))
     git('commit', '-q', '-m', msg)

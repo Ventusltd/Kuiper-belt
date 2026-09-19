@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+r"""tools/cadence.py - publish the next tested iteration every twenty minutes, with no assistant in the loop.
+
+    python tools/cadence.py --until 2026-09-20T16:30        run until that local time
+    python tools/cadence.py --once                          one look, then stop
+
+Publishing must not cost an assistant a step. Assistants build iterations in E:\kuiper-iterations and
+test them with tools/iterate.py. This script, plain Python on the desktop machine, looks once a minute.
+When twenty minutes have passed since the last publication it takes the OLDEST iteration that
+
+    has a verdict with full marks (every self test PASS, data sums, no private digest, scripts parse),
+    was tested AFTER its pages were last edited (so a half edited folder is never published),
+    and has not been published before,
+
+and hands it to tools/publish_proof.py, which has its own twenty minute rule and its own privacy
+guard. IF NOTHING QUALIFIES IT PUBLISHES NOTHING. An empty slot is a true record; a padded one is not.
+Every decision is written to E:\kuiper-iterations\LOG.md, once per change, not once per minute.
+"""
+import io
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+from datetime import datetime
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = r'E:\kuiper-iterations'
+SITE = os.path.join(HERE, '..', '..', '_wt-estate')
+STATE = os.path.join(ROOT, 'published.json')
+LOG = os.path.join(ROOT, 'LOG.md')
+GAP = 1200
+_last_said = [None]
+
+
+def say(msg):
+    if msg != _last_said[0]:
+        _last_said[0] = msg
+        line = '%s  %s\n' % (datetime.now().strftime('%Y-%m-%d %H:%M'), msg)
+        io.open(LOG, 'a', encoding='utf-8', newline='\n').write(line)
+        print(line, end='', flush=True)
+
+
+def state():
+    return json.load(io.open(STATE, encoding='utf-8')) if os.path.exists(STATE) else {'published': {}, 'last': 0}
+
+
+def candidate(done):
+    for d in sorted(x for x in os.listdir(ROOT) if re.match(r'^\d{4}$', x)):
+        if d in done or d == '0001':                                # 0001 is the baseline, already public
+            continue
+        f = os.path.join(ROOT, d)
+        v = os.path.join(f, 'verdict.json')
+        if not os.path.exists(v):
+            continue
+        verdict = json.load(io.open(v, encoding='utf-8'))
+        if verdict['score'] != verdict['out_of']:
+            continue
+        pages = [os.path.join(f, p) for p in os.listdir(f) if p.endswith('.html')]
+        if any(os.path.getmtime(p) > os.path.getmtime(v) for p in pages):
+            continue                                                # edited after it was tested: test it again first
+        return d, verdict
+    return None, None
+
+
+def look():
+    st = state()
+    wait = GAP - (time.time() - st['last'])
+    if wait > 0:
+        return
+    d, verdict = candidate(st['published'])
+    if not d:
+        say('slot open, nothing qualifies: no tested, full marks, unpublished iteration')
+        return
+    f = os.path.join(ROOT, d)
+    note = io.open(os.path.join(f, 'NOTE.md'), encoding='utf-8').read().strip()
+    first = note.split('\n')[0][:110]
+    proof = os.path.join(f, 'PROOF.md')
+    tests = '\n'.join('- `%s`: %s' % (k, t['title']) for k, t in verdict['selftests'].items())
+    io.open(proof, 'w', encoding='utf-8', newline='\n').write(
+        '# Iteration %s\n\n%s\n\n## Tested unattended before publishing\n\nScore %d of %d, %s.\n\n%s\n\n'
+        'Built and tested locally, published by a Python timer with no assistant in the loop.\n'
+        'Provided as is, without warranty of any kind; a chart, not a design.\n'
+        % (d, note, verdict['score'], verdict['out_of'], verdict['tested'], tests))
+    subprocess.run(['git', 'fetch', '-q', 'origin'], cwd=SITE)
+    subprocess.run(['git', 'merge', '-q', '--ff-only', 'origin/main'], cwd=SITE, capture_output=True)
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'publish_proof.py'), 'k' + d, first, first, proof, f],
+                       capture_output=True, text=True)
+    out = (r.stdout + r.stderr).strip().split('\n')
+    if r.returncode == 0:
+        st['published'][d] = {'at': datetime.now().strftime('%Y-%m-%dT%H:%M'), 'url': out[-1]}
+        st['last'] = time.time()
+        json.dump(st, io.open(STATE, 'w', encoding='utf-8', newline='\n'), indent=1)
+        say('PUBLISHED %s  %s' % (d, out[-1]))
+    else:
+        say('NOT published %s: %s' % (d, out[-1][:160]))
+
+
+def main():
+    a = sys.argv[1:]
+    os.makedirs(ROOT, exist_ok=True)
+    if '--once' in a:
+        look()
+        return 0
+    until = datetime.fromisoformat(a[a.index('--until') + 1]) if '--until' in a else None
+    say('cadence started, one publication per %d minutes at most%s' % (GAP // 60, ', until ' + until.isoformat() if until else ''))
+    while not until or datetime.now() < until:
+        try:
+            look()
+        except Exception as e:
+            say('cadence error, carrying on: %r' % (e,))
+        time.sleep(60)
+    say('cadence stopped at its set time')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
