@@ -125,8 +125,7 @@ against Table 1 one size at a time, from a private copy, publishing only pass or
 ## Addendum 2: a maker's published datasheet measures our assumption (19 September 2026)
 
 Source: Studer Cables AG, public datasheet for a 1500 V DC photovoltaic string cable, document
-0000461 V05, from the maker's own product page. Cited as a published key. No affiliation and no
-endorsement in either direction; their drawings and text are not copied here. Makers reserve the
+0000461 V05, from the maker's own product page. Cited as a published key; their drawings and text are not copied here. Makers reserve the
 right to change values: check the current sheet.
 
 | 1 x 6 mm², as published by the maker | value | what it checks |
