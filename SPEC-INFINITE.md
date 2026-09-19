@@ -46,6 +46,25 @@ stored, no count is precomputed, and nothing can drift out of date.**
 its blob and its offset. Read that one blob, which is kilobytes, count newlines up to the offset, and
 you have the line number and the code. Never read the estate to draw the estate.
 
+**1b. DRAW EVERYTHING, FETCH ONE. The GridAtlas pattern, already proven in this estate.**
+
+The reader never looks at more than one thing at a time. GridAtlas has worked this way since before
+the belt existed: the map shows the whole country, and it pulls a satellite scene and a project
+record only for the site you flew to. The REPD database is never shipped to the browser.
+
+The belt is the same shape, and it is stronger, because **drawing needs no data at all**:
+
+| | what crosses the wire |
+|---|---|
+| drawing every particle | **nothing.** Positions are computed from the ordinal by the placement law |
+| the index | blob SHAs and sizes from git's object headers, seconds, no content read |
+| looking at one particle | **one blob**, kilobytes, fetched at the moment of the click |
+
+So 9.4 GB is rendered without 9.4 GB ever being transferred, and the one file under the cursor is
+fetched the way GridAtlas fetches one scene. Everything is drawn; almost nothing is loaded.
+
+This is why the index must be bytes and not content, and why the engine must never wait on a count.
+
 **2. Counting is for the claim, not for the picture.**
 
 "This estate holds N lines" is a public assertion, and under the first law an assertion needs a
