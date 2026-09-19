@@ -67,13 +67,26 @@ def new(note):
     taken = [int(d) for d in os.listdir(ROOT) if re.match(r'^\d{4}$', d)]
     n = (max(taken) + 1) if taken else 1
     d = folder(n)
+    # START FROM THE NEWEST ITERATION THAT SCORED FULL MARKS, not from the repository. The repository is
+    # only promoted at a review, so starting from it would silently throw away every iteration since.
+    base = KB
+    for t in sorted(taken, reverse=True):
+        v = os.path.join(folder(t), 'verdict.json')
+        if os.path.exists(v):
+            j = json.load(io.open(v, encoding='utf-8'))
+            if j['score'] == j['out_of']:
+                base = folder(t)
+                break
     os.makedirs(d)
-    for f in os.listdir(KB):
+    for f in os.listdir(base):
         if f.endswith('.html'):
-            shutil.copy(os.path.join(KB, f), d)
-    shutil.copytree(os.path.join(KB, 'cosmos'), os.path.join(d, 'cosmos'), ignore=shutil.ignore_patterns('commits', 'belt.tsv'))
+            shutil.copy(os.path.join(base, f), d)
+    shutil.copytree(os.path.join(base, 'cosmos'), os.path.join(d, 'cosmos'), ignore=shutil.ignore_patterns('commits', 'belt.tsv'))
+    print('started from %s' % base)
     io.open(os.path.join(d, 'NOTE.md'), 'w', encoding='utf-8', newline='\n').write(note.strip() + '\n')
-    io.open(os.path.join(d, 'selftests.txt'), 'w', encoding='utf-8', newline='\n').write('\n'.join(DEFAULT_TESTS) + '\n')
+    prior = os.path.join(base, 'selftests.txt')                     # tests are inherited too, so a new test is never lost
+    tests = io.open(prior, encoding='utf-8').read() if base != KB and os.path.exists(prior) else '\n'.join(DEFAULT_TESTS) + '\n'
+    io.open(os.path.join(d, 'selftests.txt'), 'w', encoding='utf-8', newline='\n').write(tests)
     print('iteration %04d at %s' % (n, d))
     return n
 
