@@ -131,3 +131,30 @@ nothing. The exposure is **names**:
 
 The `stones` repository already excludes commercial and contractual detail by policy, enforced by
 `tools/check-policy.mjs`. The belt has no equivalent yet. That gap is this item.
+
+## Cable sections for accessory selection — the commercial use, and its rule
+
+A buyer uses the section to choose accessories: a separable T connector or elbow is matched to the
+**over-insulation diameter**, a compression lug to the **conductor diameter and material**, a screen
+connection to the **wire count and size**. Those dimensions are the product, not decoration.
+
+**Expose on the card, computed from the inputs already in the file:** conductor diameter,
+over conductor screen, over insulation, over insulation screen, screen wire count and size, over
+bedding, and overall. The 800 mm2 already carries every one of these as inputs; they are not shown.
+
+**THE RULE, and it is a safety and commercial one.** No dimension may be invented. A diameter
+guessed by a model, shown on a page where someone orders a connector against it, is the exact failure
+this project exists to prevent. Every size drawn must come from a document the author holds, and the
+card must name which one. Where a figure is missing, draw nothing rather than a plausible ring.
+
+**Sizes to add, with their sources:**
+- **110 kV** — the author's own document in Dropbox. Not yet read; do not draw until it is.
+- **132 kV** — the **UKPN open public tender specification**, which is public and citable, so this one
+  may be published complete with the spec named. Also TF Kable, Poland, for manufacturer construction.
+- **11 kV and 33 kV** — BS 7870-4.10, licensed copy. Publish the drawing and its own inputs, cite the
+  standard, never the tables.
+- **Strands, all sizes** — IEC 60228, already in the estate. EN 50618 beside it.
+
+**Then the join:** each drawn layer should offer the app that computes it, so the section becomes the
+front door to work that already exists — `cable_selection`, `star-cable-derating-star`,
+`cable-trench-or-drill`. Click the conductor, land on the derating maths.
