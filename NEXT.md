@@ -158,3 +158,24 @@ card must name which one. Where a figure is missing, draw nothing rather than a 
 **Then the join:** each drawn layer should offer the app that computes it, so the section becomes the
 front door to work that already exists — `cable_selection`, `star-cable-derating-star`,
 `cable-trench-or-drill`. Click the conductor, land on the derating maths.
+
+## Taking dimensions from the author's own project documents — permitted, with a strict filter
+
+The author has given permission: technical specifications inside his own project records may be used
+to set the inputs of a drawing. He paid for that engineering and it is his.
+
+**Carry across ONLY the engineering:**
+conductor size and material, stranding and class, screen construction, wire count and size, layer
+thicknesses, overall diameter, voltage designation, and the standard the construction conforms to.
+
+**NEVER carry across, in any file, card, commit message or record:**
+client or counterparty names, project names, purchase order or invoice numbers, quantities, prices,
+delivery terms, contacts, or anything identifying a commercial relationship. The documents sit inside
+an order book covering 2012 onward and that book is private, in full.
+
+**In practice:** open the document, read the construction table, write the numbers into the cable
+inputs, and cite the *standard* the construction follows, never the project it came from. If a
+dimension can only be attributed by naming a client, leave it out.
+
+This is the same rule the estate already applies elsewhere: the drawing carries its inputs, the
+inputs carry their standard, and nothing carries a counterparty.
