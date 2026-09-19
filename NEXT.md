@@ -79,3 +79,34 @@ Environment workflow already does.
 - Push `origin`'s ref to a second host, never the local working copy.
 - No percentage without the date of the index it was measured against.
 - Publishing is Vikram's word. Agents commit; they do not push.
+
+## Cable cross-sections — the next build, with its sources
+
+`draw cable` is live on the kuiper version: a single core 800 mm2 aluminium 19/33 kV section,
+3,086 nodes, overall 63.0 mm, from stated inputs carried inside the file. It has one known defect.
+
+**DEFECT: the conductor is drawn as five smooth concentric rings. It should be individual strands.**
+A compacted stranded aluminium conductor is roughly 61 wires in five layers with alternating lay,
+squashed from round into keystones. Under a saw cut you see a mosaic, not rings. Fix needs four
+inputs per size: wires per layer, wire diameter, lay direction, compaction factor.
+
+**What an X-ray would show, as the target for the drawing:** the copper wire screen blazes, because
+copper is far denser than anything around it — a ring of brilliant evenly spaced points, the
+brightest thing in the image. The aluminium core sits mid-grey. XLPE, both semicons, the bedding and
+the MDPE are nearly invisible, so the insulation is defined by the GAP between the bright screen ring
+and the grey core. The two things an engineer looks for are eccentricity, the gap measured all the
+way round, and voids, a dark crescent at a screen interface where there should be none.
+
+**Sources for the inputs, per voltage:**
+- **11 kV and 33 kV** — BS 7870-4.10, Vikram's licensed copy in Dropbox.
+- **132 kV** — TF Kable, Poland. Published manufacturer datasheets.
+
+**The licensing line, and it is not negotiable.** Use the standard privately to set the inputs for a
+size. Publish the DRAWING and only that cable's own inputs, citing BS 7870-4.10 as the reference the
+construction conforms to. Never publish a machine-readable copy of BSI's tables. Where a public
+dataset covering many sizes is wanted, take it from manufacturers' published datasheets, which carry
+the same wire counts and diameters and are freely citable — the same rule the estate already applies
+to REPD and OSM.
+
+Everything drawn stays an arrangement from stated inputs, not a design. A design carries a named
+engineer and indemnity.
