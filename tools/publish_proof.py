@@ -23,7 +23,8 @@ KB = os.path.join(HERE, '..')
 SITE = os.path.join(KB, '..', '_wt-estate')
 BASE = 'testcode/wafer-development-environment'
 NEST = 'Kuiper: proofs'
-NOT_PUBLIC = ['pipelinenews-gridatlas-20260906', 'gis-sld-sandbox', '_board', 'Kuiper_belt']
+sys.path.insert(0, HERE)
+from check_proof import leaks          # digests, not names: the guard must not spell what it guards
 
 
 def git(*a):
@@ -64,11 +65,10 @@ def main():
             if f.endswith('.py'):
                 continue
             body = io.open(os.path.join(root, f), encoding='utf-8', errors='replace').read()
-            for name in NOT_PUBLIC:
-                if name in body:
-                    shutil.rmtree(dst)
-                    print('REFUSED (L6): a name that is not public appears in %s' % f)
-                    return 2
+            if leaks(body):
+                shutil.rmtree(dst)
+                print('REFUSED (L6): a name that is not public appears in %s' % f)
+                return 2
 
     p = os.path.join(SITE, 'index.html')
     s = io.open(p, encoding='utf-8').read()
