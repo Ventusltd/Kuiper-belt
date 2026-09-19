@@ -1,3 +1,5 @@
+MINE = lambda sha: True
+SUF = ''
 #!/usr/bin/env python3
 """tools/count_lines.py - count every line in the estate, at HEAD and across all history.
 
@@ -82,6 +84,7 @@ def batch_count(d, shas):
 
 
 def do_head(rs, seen):
+    global MINE
     paths = 0
     for name, d in rs:
         new = []
@@ -90,7 +93,7 @@ def do_head(rs, seen):
             if len(p) < 5 or p[1] != 'blob':
                 continue
             paths += 1
-            if p[2] not in seen:
+            if p[2] not in seen and MINE(p[2]):
                 seen[p[2]] = None
                 new.append(p[2])
         seen.update(batch_count(d, new))
@@ -99,12 +102,13 @@ def do_head(rs, seen):
 
 
 def do_history(rs, seen):
+    global MINE
     for name, d in rs:
         new = []
         for line in git(d, ['cat-file', '--batch-all-objects',
                             '--batch-check=%(objectname) %(objecttype)']).splitlines():
             p = line.split()
-            if len(p) == 2 and p[1] == 'blob' and p[0] not in seen:
+            if len(p) == 2 and p[1] == 'blob' and p[0] not in seen and MINE(p[0]):
                 seen[p[0]] = None
                 new.append(p[0])
         seen.update(batch_count(d, new))
@@ -144,19 +148,33 @@ def main():
     ap.add_argument('--roots', default='.')
     ap.add_argument('--depth', default='head', choices=['head', 'history', 'authored', 'all'])
     ap.add_argument('--out', default='data')
+    ap.add_argument('--shard', type=int, default=0, help='0-based shard index')
+    ap.add_argument('--of', type=int, default=1, help='total shards; the set is split by SHA')
     a = ap.parse_args()
 
     rs = find_repos([r for r in a.roots.split(',') if r])
     if not rs:
         print('FAIL: zero repositories. A check that examines nothing refuses.')
         return 1
+    if a.of < 1 or not (0 <= a.shard < a.of):
+        print('FAIL: --shard must be 0 <= shard < --of')
+        return 1
+    # Sharding is deterministic and by CONTENT, not by repository: a blob belongs to the shard
+    # given by its own SHA. Every shard therefore sees a disjoint slice, no blob is counted twice,
+    # and the shards sum exactly to the whole. Re-running any shard reproduces the same slice.
+    global MINE
+    MINE = (lambda sha: int(sha[:8], 16) % a.of == a.shard) if a.of > 1 else (lambda sha: True)
 
     now = datetime.now(timezone.utc).astimezone().isoformat(timespec='seconds')
     run = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     os.makedirs(a.out, exist_ok=True)
     os.makedirs('proof', exist_ok=True)
+    global SUF
+    SUF = '' if a.of == 1 else '-%02d-of-%02d' % (a.shard, a.of)
 
     counts = {
+        'shard': a.shard,
+        'of': a.of,
         'run': run,
         'asof': now,
         'repositories': len(rs),
@@ -171,7 +189,7 @@ def main():
         counts['head_text_blobs'] = sum(1 for v in seen.values() if v is not None and v >= 0)
         counts['head_binary_blobs'] = sum(1 for v in seen.values() if v == -1)
         counts['head_lines'] = sum(v for v in seen.values() if v and v > 0)
-        write_tsv(os.path.join(a.out, 'blob-lines.tsv'), seen)
+        write_tsv(os.path.join(a.out, 'blob-lines%s.tsv' % SUF), seen)
 
     if a.depth in ('history', 'all'):
         seen = {}
@@ -180,7 +198,7 @@ def main():
         counts['history_text_blobs'] = sum(1 for v in seen.values() if v is not None and v >= 0)
         counts['history_binary_blobs'] = sum(1 for v in seen.values() if v == -1)
         counts['history_lines'] = sum(v for v in seen.values() if v and v > 0)
-        write_tsv(os.path.join(a.out, 'blob-lines-history.tsv'), seen)
+        write_tsv(os.path.join(a.out, 'blob-lines-history%s.tsv' % SUF), seen)
 
     if a.depth in ('authored', 'all'):
         rows = do_authored(rs)
@@ -191,7 +209,7 @@ def main():
         counts['authored_deleted'] = sum(r[2] for r in rows)
         counts['commits'] = sum(r[3] for r in rows)
 
-    with open(os.path.join(a.out, 'counts.json'), 'w', encoding='utf-8', newline='\n') as f:
+    with open(os.path.join(a.out, 'counts%s.json' % SUF), 'w', encoding='utf-8', newline='\n') as f:
         f.write(json.dumps(counts, indent=1, sort_keys=True))
 
     digests = {}
