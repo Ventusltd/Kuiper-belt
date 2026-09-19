@@ -35,7 +35,24 @@ inside the visible annulus, at the density the zoom level justifies. Far out, ta
 stride so every drawn particle still carries its true `k`. Close in, generate every ordinal in range.
 Memory stays flat while the addressable space does not.
 
-**3. Level of detail, stated rather than implied.**
+**3. THE DEFAULT IS EVERYTHING. Truncation is never the model's decision.**
+
+Loading the whole estate onto one screen IS the product. Not a sample of it, not a representative
+subset, not the part that fits comfortably. All of it.
+
+So the default is: draw every particle. Sampling exists only as an explicit fallback, and only when
+the device genuinely cannot, and when it happens the screen must say so in its own words: how many
+of how many, at what stride. A view that quietly shows a fraction while implying the whole is the
+same failure as reporting the wafer's dust count for the Kuiper belt, and it is forbidden for the
+same reason.
+
+**What full actually costs, measured rather than assumed:** at two coordinates of float32 per point,
+200 million particles is about 1.6 GB of GPU buffer. That is large but not absurd on the MSI, and it
+is impossible on a phone. So the honest behaviour is: attempt everything, and if the device refuses
+the allocation, fall back and SAY the number it fell back to. Never pre-emptively shrink because a
+phone might be watching.
+
+**Level of detail, when it is genuinely needed, stated rather than implied.**
 Each frame records the stride it used and the count it drew, and the HUD must say both: how many of
 how many, and at what sampling. A sampled view that claims to show everything is a lie of exactly
 the kind this project exists to prevent.
