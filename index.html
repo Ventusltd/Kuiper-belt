@@ -23,6 +23,13 @@
   #goto{position:fixed;left:50%;top:38%;transform:translateX(-50%);z-index:20;display:none;background:var(--bg);
     border:1px solid var(--dim);padding:10px 12px;min-width:min(520px,86vw)}
   #goto input{width:100%;background:var(--bg);color:var(--ink);border:0;outline:0;font:14px ui-monospace,Consolas,monospace}
+  /* SCADA MEANINGS, one colour one meaning: x-ray grey is the record, cyan is the instrument,
+     green is energised (lit), amber is attention (new), magenta is selected. */
+  :root{--cy:#2ee6e6;--gn:#22ee77;--am:#ffb000;--mg:#ff2bd6}
+  #big{color:var(--cy);text-transform:uppercase;letter-spacing:.16em;font-size:15px}
+  #top,#hud{border:1px solid #12414a;border-top:0} #top{border-left:0} #hud{border-right:0;color:#8fb3bd}
+  #card{border-color:#1d6470} #card b{color:var(--am)} #foot{border-top-color:#12414a} #foot b{color:var(--cy)}
+  #goto{border-color:var(--cy)}
 </style>
 </head>
 <body>
@@ -32,7 +39,7 @@
 <div id="card"></div>
 <div id="goto"><input id="gotoin" autocomplete="off" spellcheck="false" placeholder="a key, or a repository name to send light through"></div>
 <div id="foot">
-  <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, or a repository to light &middot; <b>click</b> lights the repository under the
+  <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
   pointer through all of time &middot; drag &middot; scroll &middot; <b>backspace</b> whole wafer &middot; one law at every zoom:
   r = &radic;key, &theta; = key &times; golden angle &middot; dark rings are silence between commits, measured &middot; unresolved
   pixels are computed from the law, not drawn &middot; provided as is, without warranty of any kind; a chart, not a design
@@ -71,7 +78,7 @@ void main(){ vec2 p = vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2)); gl_
 const FS_FIELD = `#version 300 es
 precision highp float; precision highp sampler2D;
 uniform vec2 u_res, u_center; uniform float u_zoom, u_R, u_points;
-uniform sampler2D u_commits; uniform int u_n, u_litRepo; uniform float u_pulse, u_flash, u_newR;
+uniform sampler2D u_commits; uniform int u_n, u_litRepo; uniform float u_pulse, u_flash, u_newR; uniform vec2 u_litK;
 out vec4 o;
 vec4 C(int i){ return texelFetch(u_commits, ivec2(i % ${TW}, i / ${TW}), 0); }   // k0, k1, issued before, repo
 int find(float k){ int lo = 0, hi = u_n - 1;
@@ -91,12 +98,15 @@ void main(){
   // THE LIGHT. Which repository owns the key at the centre of this pixel. This one is a tap, not
   // a count: it says where a repository's work lies in time, and no number is read off it.
   if (u_litRepo >= 0) { float kc = r*r; vec4 c = C(find(kc)); if (kc <= c.g && int(c.a + 0.5) == u_litRepo)
-    col = mix(col, vec3(0.95,0.72,0.40), u_points > 0.5 ? 0.10 : 0.72); }
+    col = mix(col, vec3(0.13,0.93,0.47), u_points > 0.5 ? 0.10 : 0.72); }
+  // A PERIOD IS A BAND. Keys run in time order, so a month or a day is one contiguous annulus.
+  if (u_litK.x >= 0.0 && r + h >= u_litK.x && r - h <= u_litK.y && cov > 0.0)
+    col = mix(col, vec3(0.13,0.93,0.47), u_points > 0.5 ? 0.10 : 0.72);
   // THE PULSE travels outward from the centre, which on this wafer is forward through time. It is
   // the instrument's sweep, not data, so it is faint over silence and bright over work.
-  if (u_pulse >= 0.0) { float d = abs(r - u_pulse) * u_zoom; col += vec3(0.95,0.90,0.75) * exp(-d*d/160.0) * (0.25 + 0.75*cov); }
+  if (u_pulse >= 0.0) { float d = abs(r - u_pulse) * u_zoom; col += vec3(0.45,0.95,1.0) * exp(-d*d/160.0) * (0.25 + 0.75*cov); }
   // THE FLASH lights only keys issued at or after the boundary, and only where keys were issued.
-  if (u_flash > 0.0 && r + h >= u_newR && cov > 0.0) col = mix(col, vec3(1.0,0.78,0.42), u_flash);
+  if (u_flash > 0.0 && r + h >= u_newR && cov > 0.0) col = mix(col, vec3(1.0,0.69,0.0), u_flash);
   o = vec4(col, 1.0);
 }`;
 const VS_KEYS = `#version 300 es
@@ -115,7 +125,7 @@ void main(){
 const FS_KEYS = `#version 300 es
 precision highp float; in float v_hot; out vec4 o;
 void main(){ if (length(gl_PointCoord-0.5) > 0.5) discard;
-  o = vec4(mix(vec3(0.79,0.83,0.90), vec3(0.97,0.74,0.40), v_hot), 1.0); }`;
+  o = vec4(v_hot > 1.5 ? vec3(1.0,0.69,0.0) : (v_hot > 0.5 ? vec3(0.13,0.93,0.47) : vec3(0.79,0.83,0.90)), 1.0); }`;
 function prog(vs, fs){ const p = gl.createProgram();
   for (const [t,s] of [[gl.VERTEX_SHADER,vs],[gl.FRAGMENT_SHADER,fs]]) { const sh = gl.createShader(t);
     gl.shaderSource(sh,s); gl.compileShader(sh);
@@ -153,12 +163,28 @@ Promise.all([tsv('cosmos/repos.tsv'), tsv('cosmos/wafer.tsv')]).then(([rr, ww]) 
     + new Date(commits[0].unix*1000).toISOString().slice(0,10) + ' at the centre, ' + new Date(commits[commits.length-1].unix*1000).toISOString().slice(0,10)
     + ' at the rim, and the next line ever written lands beyond it';
   home(); dirty = true;
+  { const st = new URLSearchParams(location.search).get('selftest') || '', mt = st.match(/^(20\d\d)-(\d\d)$/);
+    if (mt) setTimeout(() => { tween = null; const R = Math.sqrt(SPACE); cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2)*0.80/R;
+      const got = lightTime(+mt[1], +mt[2], 0); tween = null; cx = 0; cy = 0; zoom = (Math.min(cv.width, cv.height)/2)*0.80/R; draw();
+      let direct = 0; if (got) for (let i = got.i0; i < got.i1; i++) direct += commits[i].lines;
+      // A lit period contains its own nights, so one pixel proves nothing: the first version of this
+      // test sampled the middle of July, landed on a silent ring and failed correctly for the wrong
+      // reason. Scan right across the band. Work must be green, silence must be dark, nothing else.
+      const px = new Uint8Array(4); let green = 0, dark = 0, other = 0; const seen = [];
+      const xa = Math.round(cv.width/2 + litK[0]*zoom), xb = Math.round(cv.width/2 + litK[1]*zoom);
+      for (let x = xa; x <= xb; x++) { gl.readPixels(x, Math.round(cv.height/2), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+        const g = px[1] > 120 && px[1] > px[0] + 40 && px[1] > px[2] + 30, d = px[0] < 60 && px[1] < 60 && px[2] < 70;
+        if (g) green++; else if (d) dark++; else other++; if (seen.length < 12) seen.push([px[0], px[1], px[2]]); }
+      const T = { period: st, commits: got ? got.i1 - got.i0 : 0, lines_by_running_total: got ? got.lines : 0, lines_added_directly: direct,
+        T1_running_total_equals_direct_sum: !!got && got.lines === direct,
+        T2_work_is_green_and_silence_is_dark: green > 0 && other === 0, pixels_across_band: { green, dark, other }, first_pixels: seen };
+      T.PASS = T.T1_running_total_equals_direct_sum && T.T2_work_is_green_and_silence_is_dark; window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL'); }, 400); }
   if (new URLSearchParams(location.search).get('selftest') === 'new') { selftest = {}; tween = null; setTimeout(() => showNew(24), 300); }
 }).catch(() => { hud.textContent = 'cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });
 
 // ------------------------------------------------------------------------ camera and address
 let cx = 0, cy = 0, zoom = 1, dirty = true, tween = null, litRepo = -1, target = null;
-let pulse = -1, flash = 0, newFrom = -1, anim = null, selftest = null;
+let pulse = -1, flash = 0, newFrom = -1, anim = null, selftest = null, litK = [-1,-1], litCi = null;
 function resize(){ cv.width = ov.width = innerWidth; cv.height = ov.height = innerHeight; gl.viewport(0,0,cv.width,cv.height); dirty = true; }
 addEventListener('resize', resize); resize();
 function flyTo(x, y, z){ tween = { t0:performance.now(), x0:cx, y0:cy, z0:zoom, x1:x, y1:y, z1:z, dur:900 }; }
@@ -208,6 +234,7 @@ function draw(){
   gl.useProgram(PF);
   gl.uniform2f(U(PF,'u_res'), W, H); gl.uniform2f(U(PF,'u_center'), cx, cy); gl.uniform1f(U(PF,'u_zoom'), zoom);
   gl.uniform1f(U(PF,'u_R'), R); gl.uniform1f(U(PF,'u_points'), points ? 1 : 0);
+  gl.uniform2f(U(PF,'u_litK'), litK[0], litK[1]);
   gl.uniform1f(U(PF,'u_pulse'), pulse); gl.uniform1f(U(PF,'u_flash'), flash);
   gl.uniform1f(U(PF,'u_newR'), newFrom >= 0 ? Math.sqrt(commits[newFrom].k0) : 1e30);
   gl.uniform1i(U(PF,'u_commits'), 0); gl.uniform1i(U(PF,'u_n'), commits.length); gl.uniform1i(U(PF,'u_litRepo'), litRepo);
@@ -220,7 +247,7 @@ function draw(){
   let ms = 0;
   if (points) { const t0 = performance.now(); gl.useProgram(PK);
     gl.uniform1f(U(PK,'u_zoom'), zoom); gl.uniform2f(U(PK,'u_center'), cx, cy); gl.uniform2f(U(PK,'u_res'), W, H);
-    for (const [s0, s1, rp, ci] of segs) { gl.uniform1f(U(PK,'u_hot'), (newFrom >= 0 ? ci >= newFrom : rp === litRepo) ? 1 : 0);
+    for (const [s0, s1, rp, ci] of segs) { gl.uniform1f(U(PK,'u_hot'), (newFrom >= 0 && ci >= newFrom) ? 2 : ((rp === litRepo || (litCi && ci >= litCi[0] && ci < litCi[1])) ? 1 : 0));
       for (let off = s0; off < s1; off += 4000000) {                       // bounded calls; the driver watchdog is real
         gl.uniform1ui(U(PK,'u_k0lo'), (off % 4294967296) >>> 0); gl.uniform1f(U(PK,'u_R0'), Math.sqrt(off));
         gl.drawArrays(gl.POINTS, 0, Math.min(4000000, s1 - off)); } }
@@ -235,6 +262,15 @@ function draw(){
   L.push(zoom >= 1 ? 'zoom ' + zoom.toFixed(1) + ' px per key spacing' : 'zoom 1 px = ' + words(1/zoom) + ' units');
   hud.textContent = L.join('\n');
   o2.clearRect(0,0,ov.width,ov.height);
+  { const x0 = (0 - cx)*zoom + ov.width/2, y0 = ov.height/2 + cy*zoom, M = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const a = new Date(commits[0].unix*1000), b = new Date(commits[commits.length-1].unix*1000); let lastPx = -99;
+    o2.font = '10px ui-monospace,Consolas,monospace'; o2.lineWidth = 1;
+    for (let y = a.getUTCFullYear(), m = a.getUTCMonth() + 1; y < b.getUTCFullYear() || (y === b.getUTCFullYear() && m <= b.getUTCMonth()); m++) {
+      if (m > 11) { m = 0; y++; }
+      const t = Date.UTC(y, m, 1)/1000, i = Math.min(commits.length-1, findBy('unix', t - 1) + 1), rp = Math.sqrt(commits[i].k0)*zoom;
+      if (rp - lastPx < 26 || rp > 6000) continue; lastPx = rp;
+      o2.strokeStyle = 'rgba(46,230,230,.30)'; o2.beginPath(); o2.arc(x0, y0, rp, 0, 6.2832); o2.stroke();
+      o2.fillStyle = 'rgba(46,230,230,.85)'; o2.fillText(M[m] + ' ' + String(y).slice(2), x0 + rp*0.5 + 4, y0 - rp*0.866 - 3); } }
   if (target && target.boundary && zoom >= POINTS_FROM) {
     // at this zoom the boundary circle is straight across the screen: perpendicular to the radius
     const x = (target.x - cx)*zoom + ov.width/2, y = ov.height/2 - (target.y - cy)*zoom, rr = Math.hypot(target.x, target.y) || 1;
@@ -250,7 +286,7 @@ function draw(){
     o2.fillText('older', x - ox*110, y - oy*110); o2.fillStyle = 'rgba(255,199,107,1)';
     o2.fillText('the boundary', x + tx*150, y - ty*150 - 8); o2.textAlign = 'start'; }
   if (target) { const x = (target.x - cx)*zoom + ov.width/2, y = ov.height/2 - (target.y - cy)*zoom;
-    o2.strokeStyle = 'rgba(232,179,106,.95)'; o2.lineWidth = 1; o2.beginPath();
+    o2.strokeStyle = 'rgba(255,43,214,.98)'; o2.lineWidth = 1.5; o2.beginPath();
     for (const [a,b,c,d] of [[-16,0,-6,0],[6,0,16,0],[0,-16,0,-6],[0,6,0,16]]) { o2.moveTo(x+a,y+b); o2.lineTo(x+c,y+d); } o2.stroke(); }
 }
 
@@ -294,6 +330,20 @@ function finishSelftest(c, n, lines){
   T.PASS = T.T1_new_is_one_band_beyond_everything_older && T.T2_boundary_key_resolves_to_a_new_commit && T.T3_flash_is_amber_on_the_new_band && T.T3_no_flash_on_the_silent_centre;
   window.__selftest = T; document.title = 'selftest ' + (T.PASS ? 'PASS' : 'FAIL');
 }
+// LIGHT A PERIOD. "2026-07" or "2026-07-14". Time order makes it one band, so the count is a
+// difference of two running totals and the light is one annulus.
+function lightTime(y, m, d){
+  const t0 = Date.UTC(y, m ? m-1 : 0, d || 1)/1000, t1 = d ? t0 + 86400 : Date.UTC(m ? y : y+1, m ? m : 0, 1)/1000;
+  const i0 = (commits[0].unix >= t0) ? 0 : findBy('unix', t0 - 1) + 1, i1 = (commits[0].unix >= t1) ? 0 : findBy('unix', t1 - 1) + 1;
+  const label = y + (m ? '-' + String(m).padStart(2,'0') : '') + (d ? '-' + String(d).padStart(2,'0') : '');
+  litRepo = -1; newFrom = -1; flash = 0; target = null; card.style.display = 'block';
+  if (i1 <= i0) { litK = [-1,-1]; litCi = null; card.innerHTML = label + '\nsilence: no commit carries that date'; home(); dirty = true; return null; }
+  const last = commits[i1-1], lines = last.cum + last.lines - commits[i0].cum, rs = new Set(); for (let i = i0; i < i1; i++) rs.add(commits[i].repo);
+  litK = [Math.sqrt(commits[i0].k0), Math.sqrt(last.k1)]; litCi = [i0, i1];
+  card.innerHTML = 'ENERGISED · ' + label + '\n<b>' + fmt(lines) + '</b> lines in <b>' + fmt(i1 - i0) + '</b> commits across ' + rs.size + ' repositories'
+    + '\nkeys ' + fmt(commits[i0].k0) + ' to ' + fmt(last.k1) + ' · one band, because keys run in time order';
+  home(); dirty = true; return { i0, i1, lines };
+}
 let drag = null, moved = 0;
 cv.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; moved = 0; });
 addEventListener('pointerup', e => {
@@ -309,6 +359,8 @@ addEventListener('wheel', e => { const [wx, wy] = toWorld(e.clientX, e.clientY),
 const gbox = document.getElementById('goto'), gin = document.getElementById('gotoin');
 gin.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') { gbox.style.display = 'none'; return; }
   if (e.key !== 'Enter') return; gbox.style.display = 'none'; const raw = gin.value.trim(), q = raw.replace(/[ ,_]/g,'');
+  const mt = raw.match(/^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/);
+  if (mt) { lightTime(+mt[1], mt[2] ? +mt[2] : 0, mt[3] ? +mt[3] : 0); return; }
   const mnew = raw.toLowerCase().match(/^(?:show\s+)?new(?:\s+code)?(?:\s+(\d+)\s*h?)?$/);
   if (mnew) { showNew(mnew[1] ? Number(mnew[1]) : 24); return; }
   if (/^\d+$/.test(q)) goKey(Math.min(SPACE-1, Number(q)));
@@ -318,7 +370,7 @@ addEventListener('keydown', e => { if (gbox.style.display === 'block') return;
   if (e.key === 'r' && N) { const j = Math.floor(Math.random()*N), c = commits[findBy('cum', j)]; goKey(c.k0 + (j - c.cum)); }   // uniform over issued lines
   else if (e.key === 'n' && N) showNew(24);
   else if (e.key === '/') { e.preventDefault(); gbox.style.display = 'block'; gin.value = ''; gin.focus(); }
-  else if (e.key === 'Backspace') { e.preventDefault(); target = null; litRepo = -1; newFrom = -1; flash = 0; pulse = -1; card.style.display = 'none'; home(); } });
+  else if (e.key === 'Backspace') { e.preventDefault(); target = null; litRepo = -1; newFrom = -1; flash = 0; pulse = -1; litK = [-1,-1]; litCi = null; card.style.display = 'none'; home(); } });
 requestAnimationFrame(frame);
 </script>
 </body>

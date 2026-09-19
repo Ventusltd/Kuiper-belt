@@ -50,6 +50,9 @@ def main():
     dst = os.path.join(SITE, rel)
     os.makedirs(os.path.join(dst, 'tools'))
     shutil.copy(os.path.join(KB, 'index.html'), dst)
+    for extra in ('conductor.html', 'PALETTE.md', 'CHAINS.md'):
+        if os.path.exists(os.path.join(KB, extra)):
+            shutil.copy(os.path.join(KB, extra), dst)
     shutil.copytree(os.path.join(KB, 'cosmos'), os.path.join(dst, 'cosmos'),
                     ignore=shutil.ignore_patterns('commits', 'belt.tsv'))
     for t in ('key.py', 'wafer_keys.py', 'permanence.py'):
